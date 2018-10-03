@@ -8,13 +8,9 @@ const styles = {
   textAlign: "center"
 };
 
-class Container extends React.Component {
+class Container extends React.Component<{ data }> {
   render() {
-    const plants = [];
-
-    this.props.data.forEach(plant => {
-      plants.push(<Row row={plant.name} />);
-    });
+    const plants: string[] = data.map(plant => plant.name);
 
     return (
       <div className="container col-8" id="container">
@@ -26,23 +22,66 @@ class Container extends React.Component {
   }
 }
 
-const Column = props => {
-  return (
-    <div className="bg-info col-4">
-      <div>{props.col_name} </div>
-      <div>{props.col_rows.map(row => <Row row={row} />)}</div>
-    </div>
-  );
-};
+class Column extends React.Component<{ col_name: string; col_rows: string[] }> {
+  constructor(props: { col_name: string; col_rows: string[] }) {
+    super(props);
+    this.state = {
+      title: this.props.col_name,
+      rows: this.props.col_rows.map(col_row => <Row row={col_row} />)
+    };
+  }
 
-const Row = props => {
-  return <div>{props.row}</div>;
-};
+  render() {
+    return (
+      <div className="col-6">
+        <div className="font-weight-bold bg-warning">{this.state.title} </div>
+        <div className="list-group">{this.state.rows}</div>
+      </div>
+    );
+  }
+}
 
-const App = () => (
-  <div style={styles}>
-    <Container data={data} />
-  </div>
-);
+class Row extends React.Component<{ row: string }> {
+  constructor(props: { row: string }) {
+    super(props);
+    this.state = {
+      isActive: false,
+      item_id: null,
+      parent_id: null,
+      hasChildren: false,
+      childrenCount: 0
+    };
+  }
 
+  handleClick() {}
+  render() {
+    return (
+      <a href="#" className="list-group-item list-group-item-action">
+        {this.props.row}
+      </a>
+    );
+  }
+}
+type MyProps = { data: string[] = data };
+type MyState = { value: string };
+class App extends React.Component<MyProps, MyState> {
+  constructor(props: MyProps, MyState) {
+    super(props);
+    this.state = {
+      myData: data,
+      loading: true
+    };
+    // fetching data - replace with fetch for production API
+  }
+
+  render() {
+    // add if statement to intialize container only if data is loaded
+    return (
+      <div style={styles}>
+        <Container data={this.state.myData} />
+        <p className="bg-warning" />
+      </div>
+    );
+  }
+}
 render(<App />, document.getElementById("root"));

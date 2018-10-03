@@ -1,4 +1,4 @@
-export let data = [
+export let data: string = [
   {
     id: "5bb3bbf5faf9e593e49b6ba3",
     index: 0,

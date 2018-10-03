@@ -1,4 +1,4 @@
-class Plant {
+export class Plant {
   id: string;
   name: string;
   about: string;
