@@ -20,6 +20,7 @@ export namespace Container {
         columns: this.props.columns
       };
       this.getNewColumn = this.getNewColumn.bind(this);
+      this.addNewColumn = this.addNewColumn.bind(this);
     }
     // TODO: add column if row is selected
     getNewColumn(
@@ -37,13 +38,14 @@ export namespace Container {
         title: 'new column',
         cells: myCells
       };
+      console.log('myNew Column', myColumn);
       return myColumn;
     }
 
     addNewColumn() {
-      let newColumn: ColumnObject = this.getNewColumn();
+      var newColumn: ColumnObject = this.getNewColumn();
       this.setState(
-        {columns: this.props.columns.concat(newColumn)}
+        {columns: this.state.columns.concat(newColumn)}
       );
     }
 
@@ -53,7 +55,7 @@ export namespace Container {
           <div className="row">
             {this.state.columns.map((column: ColumnObject, index: number) => <Column key={index} column={column} />)}
           </div>
-          <button>add col</button>
+          <button onClick={this.addNewColumn}>add col</button>
         </div>
       );
     }
