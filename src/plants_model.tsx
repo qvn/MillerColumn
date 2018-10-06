@@ -27,7 +27,7 @@ export namespace plants_model {
   export class Unit implements Serializable<Unit> {
     id: number;
     name: string;
-    deserialize(input: Unit) {
+    deserialize(input: UnitData) {
       this.id = input.id;
       this.name = input.name;
       return this;
@@ -42,7 +42,7 @@ export namespace plants_model {
     deserialize(input: PlantData) {
       this.id = input.id;
       this.name = input.name;
-      this.units = input.units.map((unit: Unit) =>
+      this.units = input.units.map((unit: UnitData) =>
         new Unit().deserialize(unit)
       );
       return this;
