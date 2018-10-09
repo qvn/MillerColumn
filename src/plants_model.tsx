@@ -1,36 +1,36 @@
 // https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object
 
 export namespace plants_model {
-  export interface ISerializable<T> {
+  export interface Serializable<T> {
     deserialize(input: Object): T;
   }
 
-  export class Unit implements ISerializable<Unit> {
-    unit_id: number;
+  export class Unit implements Serializable<Unit> {
+    id: number;
     name: string;
-    deserialize(input: any) {
-      this.unit_id = input.id;
+    deserialize(input: Unit) {
+      this.id = input.id;
       this.name = input.name;
       return this;
     }
   }
 
-  export class Plant implements ISerializable<Plant> {
-    plant_id: number;
+  export class Plant implements Serializable<Plant> {
+    id: number;
     name: string;
-    // units: Unit[];
+    units: Unit[];
 
-    deserialize(input) {
-      this.plant_id = input.id;
+    deserialize(input: Plant) {
+      this.id = input.id;
       this.name = input.name;
       this.units = input.units.map(unit => new Unit().deserialize(unit));
       return this;
     }
   }
 
-  export class Data implements ISerializable<Data> {
+  export class Data implements Serializable<Data> {
     plants: Plant[];
-    deserialize(input) {
+    deserialize(input: Plant[]) {
       this.plants = input.map(plant => new Plant().deserialize(plant));
       return this;
     }

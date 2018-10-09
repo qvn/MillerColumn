@@ -8,11 +8,7 @@
     "react": "^16.2.0",
     "react-bootstrap": "0.32.4",
     "react-dom": "^16.2.0",
-<<<<<<< HEAD
-    "react-scripts-ts": "^2.13.0"
-=======
-    "react-scripts-ts": "2.13.0"
->>>>>>> 0bfc0b9442fe5037a518829b3b3b5c74088e9a99
+    "react-scripts-ts": "^2.17.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -22,11 +18,11 @@
   },
   "devDependencies": {
     "@types/bootstrap": "4.1.2",
-    "@types/jest": "^22.1.3",
-    "@types/node": "^9.4.6",
+    "@types/jest": "^22.2.3",
+    "@types/node": "^9.6.35",
     "@types/react": "16.0.38",
     "@types/react-bootstrap": "0.32.14",
     "@types/react-dom": "16.0.4",
-    "typescript": "^2.7.2"
+    "typescript": "^2.9.2"
   }
 }

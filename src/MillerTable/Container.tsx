@@ -3,9 +3,9 @@ import { Column, ColumnObject } from './Column';
 import { CellObject } from './Cell';
 
 // Data Controller: need to update to call the right controller
-import { DataController } from '../data/scenarioController';
-var controller = new DataController;
-var firstColumn: ColumnObject = DataController.getNodes();
+// import { DataController } from '../data/scenarioController';
+// var controller = new DataController;
+// var firstColumn: ColumnObject = DataController.getNodes();
 
 export namespace Container {
   interface ContainerProps {
@@ -28,10 +28,6 @@ export namespace Container {
       this.getNewColumn = this.getNewColumn.bind(this);
       this.addNewColumn = this.addNewColumn.bind(this);
     }
-
-    
-
-
 
     // TODO: add column if row is selected
     getNewColumn(
