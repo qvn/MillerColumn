@@ -24,10 +24,10 @@ import { Container } from './MillerTable/Container';
 // generate Node data
 var columns: ColumnObject[] = [];
 
-const styles = {
-  fontFamily: 'sans-serif',
-  textAlign: 'center'
-};
+// const styles = {
+  // fontFamily: 'sans-serif',
+  // textAlign: 'center'
+// };
 
 // TODO: take in only the structure that fits the column, not any
 interface AppProps {}
@@ -51,7 +51,7 @@ componentDidMount() {
 render() {
   // add if statement to intialize container only if data is loaded
   return (
-    <div style={styles}>
+    <div >
       <div>
         <Container.ReactObject columns={this.state.columns} />
       </div>;

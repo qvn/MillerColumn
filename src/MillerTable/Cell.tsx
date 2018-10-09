@@ -20,7 +20,7 @@ interface CellState {
 export class Cell extends React.Component<CellProps, CellState> {
   constructor(props: CellProps) {
     super(props);
-    this.selectCell = this.selectCell.bind(this);
+    this.selectCell = this.props.deleteCell.bind(this);
     this.state = {
       cell: this.props.cell,
       isActive: false
