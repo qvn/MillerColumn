@@ -8,7 +8,11 @@
     "react": "^16.2.0",
     "react-bootstrap": "0.32.4",
     "react-dom": "^16.2.0",
+<<<<<<< HEAD
     "react-scripts-ts": "^2.13.0"
+=======
+    "react-scripts-ts": "2.13.0"
+>>>>>>> 0bfc0b9442fe5037a518829b3b3b5c74088e9a99
   },
   "scripts": {
     "start": "react-scripts-ts start",

@@ -22,6 +22,7 @@
         "jsx-no-lambda": false,
         "jsx-no-multiline-js": false,
         "label-position": true,
+<<<<<<< HEAD
         // "max-line-length": [ true, 120 ],
         "member-ordering": [
             true, 
@@ -30,12 +31,24 @@
             "static-before-instance",
             "variables-before-functions"
             ]}
+=======
+        "max-line-length": [ true, 120 ],
+        "member-ordering": [
+            true,
+            "public-before-private",
+            "static-before-instance",
+            "variables-before-functions"
+>>>>>>> 0bfc0b9442fe5037a518829b3b3b5c74088e9a99
         ],
         "no-any": true,
         "no-arg": true,
         "no-bitwise": true,
         "no-console": [
+<<<<<<< HEAD
             false,
+=======
+            true,
+>>>>>>> 0bfc0b9442fe5037a518829b3b3b5c74088e9a99
             "log",
             "error",
             "debug",
