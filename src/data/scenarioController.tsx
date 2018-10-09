@@ -1,6 +1,6 @@
-import { nodes } from './node';
-import { causes } from './cause';
-import { deviations } from './deviation';
+import { nodes } from './scenarioNode';
+import { causes } from './scenarioCause';
+import { deviations } from './scenarioDeviation';
 
 export class DataController {
     getNodes() {

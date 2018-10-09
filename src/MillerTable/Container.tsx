@@ -2,6 +2,11 @@ import * as React from 'react';
 import { Column, ColumnObject } from './Column';
 import { CellObject } from './Cell';
 
+// Data Controller: need to update to call the right controller
+import { DataController } from '../data/scenarioController';
+var controller = new DataController;
+var firstColumn: ColumnObject = DataController.getNodes();
+
 export namespace Container {
   interface ContainerProps {
     columns: ColumnObject[];
@@ -17,11 +22,17 @@ export namespace Container {
     constructor(props: ContainerProps) {
       super(props);
       this.state = {
+        
         columns: this.props.columns
       };
       this.getNewColumn = this.getNewColumn.bind(this);
       this.addNewColumn = this.addNewColumn.bind(this);
     }
+
+    
+
+
+
     // TODO: add column if row is selected
     getNewColumn(
       parentColumn?: ColumnObject,
