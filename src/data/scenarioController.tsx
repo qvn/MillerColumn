@@ -3,67 +3,52 @@ import { causes } from './scenarioCause';
 import { deviations } from  './scenarioDeviation';
 import { ColumnObject } from '../MillerTable/Column';
 import { CellObject } from '../MillerTable/Cell';
-export namespace ScenarioData {
-    export class Node {
-        id: string;
-        type: string;
-        chilrenCount: number;
-        index: number;
-        parentId: string;
-        text: string;   
-        getNodes(): ColumnObject {
-            return {
-                title: 'Node',
-                cells: nodes.map((x: Node) => {
-                    var n: CellObject = {
-                        id: x.index,
-                        content: x.text
-                    };
-                    return n;
-                })
-            };
-        }
+
+export class ScenarioData {
+    id: string;
+    parentId: string;
+    index: number;
+    type: string;
+    chilrenCount: number;
+    text: string; 
+    getChildren (parent: ScenarioData, children: ScenarioData[]): ScenarioData[] {
+        var myChilren: ScenarioData[] = [];
+        children.forEach((child: ScenarioData) => {
+            if (parent.id === child.parentId) {
+                myChilren.push(child);
+            }
+        });
+        return myChilren;
     }
 
-    export class Deviation {
-        id: string;
-        parentId: string;
-        chilrenCount: number;
-        index: number;
-        text: string;
-
-        getDeviations(): ColumnObject {
-            return {
-                title: 'Deviation',
-                cells: deviations.map((x: Deviation) => {
-                    var myDeviation: CellObject = {
-                        id: x.index,
-                        content: x.text
-                    };
-                    return myDeviation;
-                })
-            };
-        }
+    getColumnObject(title: string, data: ScenarioData[]): ColumnObject {
+        return {
+            title: title,
+            cells: data.map((x: ScenarioData) => {
+                var n: CellObject = {
+                    id: x.index,
+                    content: x.text
+                };
+                return n;
+            })
+        };
     }
+}
 
-    export class Cause {
-        id: string;
-        chilrenCount: number;
-        index: number;
-        parentId: string;
-        text: string;  
-        
-        getCause(): ColumnObject {
-            return {
-                title: 'Cause',
-                cells: causes.map((x: Cause) => {
-                    var c: CellObject = {
-                        id: x.index,
-                        content: x.text
-                    };
-                    return c;
-                })
-            };
-        }
+export class Node extends ScenarioData {
+    getNodes(): ScenarioData[] {
+        return nodes.map((node: ScenarioData) => {return node; });
+    }
+}
+
+export class Deviation extends ScenarioData {
+    getDeviations(): ScenarioData[] {
+        return deviations.map((dev: ScenarioData) => {return dev; });
+    }
+}
+
+export class Cause {
+    getCauses(): ScenarioData[] {
+        return causes.map((cause: ScenarioData) => {return cause; });
     }
 }
