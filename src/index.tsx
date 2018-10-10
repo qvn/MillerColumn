@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ColumnObject } from './MillerTable/Column';
 import { Container } from './MillerTable/Container';
+import { ScenarioData } from './data/scenarioController';
 
 // generating PLant Data
 // import { inputdata } from './plantData';
@@ -22,7 +23,10 @@ import { Container } from './MillerTable/Container';
 // console.log(columns);
 
 // generate Node data
-var columns: ColumnObject[] = [];
+var scenarioData = new ScenarioData.Node;
+var columns: ColumnObject[] = [
+  scenarioData.getNodes()
+];
 
 // const styles = {
   // fontFamily: 'sans-serif',

@@ -1,64 +1,69 @@
 import { nodes } from './scenarioNode';
 import { causes } from './scenarioCause';
-import { deviations } from './scenarioDeviation';
+import { deviations } from  './scenarioDeviation';
+import { ColumnObject } from '../MillerTable/Column';
+import { CellObject } from '../MillerTable/Cell';
+export namespace ScenarioData {
+    export class Node {
+        id: string;
+        type: string;
+        chilrenCount: number;
+        index: number;
+        parentId: string;
+        text: string;   
+        getNodes(): ColumnObject {
+            return {
+                title: 'Node',
+                cells: nodes.map((x: Node) => {
+                    var n: CellObject = {
+                        id: x.index,
+                        content: x.text
+                    };
+                    return n;
+                })
+            };
+        }
+    }
 
-export class DataController {
-    getNodes() {
-        return nodes;
+    export class Deviation {
+        id: string;
+        parentId: string;
+        chilrenCount: number;
+        index: number;
+        text: string;
+
+        getDeviations(): ColumnObject {
+            return {
+                title: 'Deviation',
+                cells: deviations.map((x: Deviation) => {
+                    var myDeviation: CellObject = {
+                        id: x.index,
+                        content: x.text
+                    };
+                    return myDeviation;
+                })
+            };
+        }
     }
-    getDeviations() {
-        return deviations;
-    }
-    getCauses() {
-        return causes;
+
+    export class Cause {
+        id: string;
+        chilrenCount: number;
+        index: number;
+        parentId: string;
+        text: string;  
+        
+        getCause(): ColumnObject {
+            return {
+                title: 'Cause',
+                cells: causes.map((x: Cause) => {
+                    var c: CellObject = {
+                        id: x.index,
+                        content: x.text
+                    };
+                    return c;
+                })
+            };
+        }
     }
 }
-
-// export namespace DataController {
-
-//     interface Serializeable<T> {
-//         deserialize(input: Object): T;
-//         // getChildren(id: string);
-//     }
-
-//     class DataObject {
-//         id: string;
-//         childrenCount: number;
-//         index: number;
-//         parentId: string;
-//         text: string; 
-//     }
-
-//     interface DataInterface {
-//         getChildren(input: DataObject['id']): DataObject[];
-//     }
-
-//     class Node extends DataObject implements DataInterface {
-//         getChildren(input: Deviation['parentId']) : Deviation[] {
-//             var deviations = deserialize()
-//         }
-//     }
-
-//     class Deviation extends DataObject implements DataInterface {
-//         getChildren(input: Cause['parentId']): Cause[] {
-
-//         }
-//     }
-
-//     class Data implements Serializeable<Data> {
-//         id: string;
-//         childrenCount: number;
-//         index: number;
-//         parentId: string;
-//         text: string;
-//         deserialize(input: DataObject) {
-//             this.id = input.id;
-//             this.childrenCount = input.childrenCount;
-//             this.index = input.index;
-//             this.parentId = input.parentId;
-//             this.text = input.text;
-//             return this;
-//         }
-//     }
-
-// }

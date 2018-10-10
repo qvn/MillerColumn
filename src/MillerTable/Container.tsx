@@ -59,10 +59,10 @@ export namespace Container {
     render() {
       return (
         <div className="container col-8 d-flex" id="container">
+          {/* <button onClick={this.addNewColumn}>add col</button> */}
           <div className="row">
             {this.state.columns.map((column: ColumnObject, index: number) => <Column key={index} column={column} />)}
           </div>
-          <button onClick={this.addNewColumn}>add col</button>
         </div>
       );
     }

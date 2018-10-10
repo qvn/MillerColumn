@@ -41,7 +41,7 @@ export class Cell extends React.Component<CellProps, CellState> {
   // updatecellContent(cell: CellObject, content: string) {}
 
   render() {
-    let divClassName = 'list-group-item list-group-item-action ';
+    let divClassName = 'list-group-item list-group-item-action w-25';
     if (this.props.isActive) {divClassName += ' active'; }
     return (
       <div>
