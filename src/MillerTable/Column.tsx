@@ -28,6 +28,7 @@ export class Column extends React.Component<ColProps, ColState> {
     this.deleteCell = this.deleteCell.bind(this);
     this.addCell = this.addCell.bind(this);
     this.selectCell = this.selectCell.bind(this);
+    this.viewCell = this.viewCell.bind(this);
   }
 
   addCell() {
@@ -63,9 +64,13 @@ export class Column extends React.Component<ColProps, ColState> {
     });
   }
 
+  viewCell(myCell: CellObject) {
+    console.log('View cell: ', myCell.id);
+  }
+
   renderCells() {
     var cells = this.state.cells.map((cell) => (
-      <Cell key={cell.cell.id} cell={cell.cell} deleteCell={this.deleteCell} selectCell={this.selectCell} isActive={cell.isActive}/>
+      <Cell key={cell.cell.id} cell={cell.cell} deleteCell={this.deleteCell} selectCell={this.selectCell} isActive={cell.isActive} viewCell={this.viewCell}/>
     ));
     return cells;
   }

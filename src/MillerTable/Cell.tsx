@@ -9,6 +9,7 @@ export interface CellProps {
   cell: CellObject;
   deleteCell: Function;
   selectCell: Function;
+  viewCell: Function;
   isActive: boolean;
 }
 interface CellState {
@@ -20,6 +21,7 @@ export class Cell extends React.Component<CellProps, CellState> {
     super(props);
     this.deleteCell = this.deleteCell.bind(this);
     this.selectCell = this.selectCell.bind(this);
+    this.viewCell = this.viewCell.bind(this);
   }
 
   selectCell() {
@@ -28,6 +30,10 @@ export class Cell extends React.Component<CellProps, CellState> {
 
   deleteCell() {
     this.props.deleteCell(this.props.cell);
+  }
+
+  viewCell() {
+    this.props.viewCell(this.props.cell);
   }
 
   // TODO: editor handler must promp for other things. For now, we just get content
@@ -50,7 +56,12 @@ export class Cell extends React.Component<CellProps, CellState> {
             >
               Del
             </a>
-            <span> View </span>
+            <a 
+              href="#"
+              onClick={this.viewCell}
+            > 
+              View 
+            </a>
             <span> Edit </span>
           </div>
         </div>
