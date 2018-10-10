@@ -12,7 +12,6 @@ interface ColProps {
 interface ColState {
   title: string;
   cells: CellObject[];
-  isActive: boolean;
 }
 export class Column extends React.Component<ColProps, ColState> {
   constructor(props: ColProps) {
@@ -20,10 +19,10 @@ export class Column extends React.Component<ColProps, ColState> {
     this.state = {
       title: props.column.title,
       cells: props.column.cells,
-      isActive: false
     };
     this.deleteCell = this.deleteCell.bind(this);
     this.addCell = this.addCell.bind(this);
+    this.selectCell = this.selectCell.bind(this);
   }
 
   addCell() {
@@ -50,6 +49,11 @@ export class Column extends React.Component<ColProps, ColState> {
     this.setState({ cells: array });
   }
 
+  selectCell(cell: CellObject) {
+    console.log('Cell ', cell.id, 'is activated');
+    
+  }
+
   render() {
     console.log('renderCell', this.state.cells);
     return (
@@ -57,7 +61,7 @@ export class Column extends React.Component<ColProps, ColState> {
         <div>{this.props.column.title}</div>
         <div className="list-group">
           {this.state.cells.map((cell: CellObject) => (
-            <Cell key={cell.id} cell={cell} deleteCell={this.deleteCell} />
+            <Cell key={cell.id} cell={cell} deleteCell={this.deleteCell} selectCell={this.selectCell}/>
           ))}
         </div>
         <button onClick={this.addCell}>addCell</button>

@@ -11,6 +11,7 @@ export interface CellProps {
   // isDeleteAble
   // isEditable
   deleteCell: Function;
+  selectCell: Function;
 }
 interface CellState {
   cell: CellObject; // cell content can be changed upon update
@@ -20,7 +21,8 @@ interface CellState {
 export class Cell extends React.Component<CellProps, CellState> {
   constructor(props: CellProps) {
     super(props);
-    this.selectCell = this.props.deleteCell.bind(this);
+    this.deleteCell = this.props.deleteCell.bind(this);
+    this.selectCell = this.selectCell.bind(this);
     this.state = {
       cell: this.props.cell,
       isActive: false
@@ -31,6 +33,11 @@ export class Cell extends React.Component<CellProps, CellState> {
     this.setState({
       isActive: this.state.isActive ? false : true
     });
+    this.props.selectCell(this.props.cell);
+  }
+
+  deleteCell(cell: CellObject) {
+    this.props.deleteCell(CellObject);
   }
 
   // TODO: editor handler must promp for other things. For now, we just get content
