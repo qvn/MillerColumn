@@ -11,14 +11,19 @@ interface ColProps {
 }
 interface ColState {
   title: string;
-  cells: CellObject[];
+  cells: {
+    // id: number,
+    // content: string,
+    cell: CellObject
+    isActive: boolean
+  }[];
 }
 export class Column extends React.Component<ColProps, ColState> {
   constructor(props: ColProps) {
     super(props);
     this.state = {
       title: props.column.title,
-      cells: props.column.cells,
+      cells: this.props.column.cells.map((cell: CellObject) => {return {cell: cell, isActive: false}; })
     };
     this.deleteCell = this.deleteCell.bind(this);
     this.addCell = this.addCell.bind(this);
@@ -26,9 +31,9 @@ export class Column extends React.Component<ColProps, ColState> {
   }
 
   addCell() {
-    let newCell: CellObject = { id: 89, content: 'new Cell' }; 
+    var newCell: CellObject = {id: 89, content: 'new Cell'};
     this.setState({
-      cells: this.state.cells.concat(newCell)
+      cells: this.state.cells.concat({cell: newCell, isActive: false })
     });
   }
 
@@ -38,7 +43,7 @@ export class Column extends React.Component<ColProps, ColState> {
     var array = [...this.state.cells]; // make a separate copy of the array
     var index = array
       .map(x => {
-        return x.id;
+        return x.cell.id;
       })
       .indexOf(cell.id);
     if (index === -1) {
@@ -49,20 +54,28 @@ export class Column extends React.Component<ColProps, ColState> {
     this.setState({ cells: array });
   }
 
-  selectCell(cell: CellObject) {
-    console.log('Cell ', cell.id, 'is activated');
-    
+  selectCell(myCell: CellObject) {
+    this.setState({
+      cells: this.state.cells.map(cell => {
+        if (cell.cell.id === myCell.id) { cell.isActive = true; } else { cell.isActive = false; }
+        return cell;
+      })
+    });
+  }
+
+  renderCells() {
+    var cells = this.state.cells.map((cell) => (
+      <Cell key={cell.cell.id} cell={cell.cell} deleteCell={this.deleteCell} selectCell={this.selectCell} isActive={cell.isActive}/>
+    ));
+    return cells;
   }
 
   render() {
-    console.log('renderCell', this.state.cells);
     return (
       <div>
         <div>{this.props.column.title}</div>
         <div className="list-group">
-          {this.state.cells.map((cell: CellObject) => (
-            <Cell key={cell.id} cell={cell} deleteCell={this.deleteCell} selectCell={this.selectCell}/>
-          ))}
+          {this.renderCells()}
         </div>
         <button onClick={this.addCell}>addCell</button>
       </div>

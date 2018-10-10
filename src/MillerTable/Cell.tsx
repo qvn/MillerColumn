@@ -7,15 +7,12 @@ export class CellObject {
 
 export interface CellProps {
   cell: CellObject;
-  // TODO: handle item below. Does Database give this information?
-  // isDeleteAble
-  // isEditable
   deleteCell: Function;
   selectCell: Function;
+  isActive: boolean;
 }
 interface CellState {
-  cell: CellObject; // cell content can be changed upon update
-  isActive: boolean;
+  // cell: CellObject; // cell content can be changed upon update
 }
 // TODO: create a cell_content class to fill the cell
 export class Cell extends React.Component<CellProps, CellState> {
@@ -23,16 +20,9 @@ export class Cell extends React.Component<CellProps, CellState> {
     super(props);
     this.deleteCell = this.props.deleteCell.bind(this);
     this.selectCell = this.selectCell.bind(this);
-    this.state = {
-      cell: this.props.cell,
-      isActive: false
-    };
   }
-  // TODO: deactive all other cells
+
   selectCell() {
-    this.setState({
-      isActive: this.state.isActive ? false : true
-    });
     this.props.selectCell(this.props.cell);
   }
 
@@ -46,12 +36,12 @@ export class Cell extends React.Component<CellProps, CellState> {
 
   render() {
     let divClassName = 'list-group-item list-group-item-action ';
-    if (this.state.isActive) {divClassName += ' active'; }
+    if (this.props.isActive) {divClassName += ' active'; }
     return (
       <div>
         <div className={divClassName}>
           <div onClick={this.selectCell} className="right-align">
-            {this.state.cell.content}
+            {this.props.cell.content}
           </div>
           <div>
             <a
