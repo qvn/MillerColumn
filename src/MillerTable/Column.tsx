@@ -63,9 +63,20 @@ export class Column extends React.Component<ColProps, ColState> {
     });
   }
 
+  editCell(myCell: CellObject) {
+    console.log('Edit Cell');
+  }
+
   renderCells() {
     var cells = this.state.cells.map((cell) => (
-      <Cell key={cell.cell.id} cell={cell.cell} deleteCell={this.deleteCell} selectCell={this.selectCell} isActive={cell.isActive}/>
+      <Cell 
+        key={cell.cell.id} 
+        cell={cell.cell} 
+        deleteCell={this.deleteCell} 
+        selectCell={this.selectCell} 
+        editCell={this.editCell}
+        isActive={cell.isActive}
+      />
     ));
     return cells;
   }
