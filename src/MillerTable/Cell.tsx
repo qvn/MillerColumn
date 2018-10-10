@@ -18,7 +18,7 @@ interface CellState {
 export class Cell extends React.Component<CellProps, CellState> {
   constructor(props: CellProps) {
     super(props);
-    this.deleteCell = this.props.deleteCell.bind(this);
+    this.deleteCell = this.deleteCell.bind(this);
     this.selectCell = this.selectCell.bind(this);
   }
 
@@ -26,8 +26,8 @@ export class Cell extends React.Component<CellProps, CellState> {
     this.props.selectCell(this.props.cell);
   }
 
-  deleteCell(cell: CellObject) {
-    this.props.deleteCell(CellObject);
+  deleteCell() {
+    this.props.deleteCell(this.props.cell);
   }
 
   // TODO: editor handler must promp for other things. For now, we just get content
@@ -45,7 +45,8 @@ export class Cell extends React.Component<CellProps, CellState> {
           </div>
           <div>
             <a
-              href="#"
+              href="#" 
+              onClick={this.deleteCell}
             >
               Del
             </a>
