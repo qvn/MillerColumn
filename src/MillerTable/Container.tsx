@@ -31,8 +31,8 @@ export namespace Container {
 
     // TODO: add column if row is selected
     getNewColumn(
-      parentColumn?: ColumnObject,
-      rowSelected?: CellObject
+      childrenTable?: string,
+      parentId?: string,
     ): ColumnObject {
       var myCells = [1, 2, 3, 4].map(item => {
         var newRow: CellObject = {

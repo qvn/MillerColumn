@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ColumnObject } from './MillerTable/Column';
 import { Container } from './MillerTable/Container';
-import { Node, Deviation } from './data/scenarioController';
+import { Node, Controller } from './data/scenarioController';
 
 // generating PLant Data
 // import { inputdata } from './plantData';
@@ -29,10 +29,12 @@ var columns: ColumnObject[] = [
   node.getColumnObject('Node', node.getNodes())
 ];
 
-var deviation = new Deviation;
-var myDeviations = deviation.getDeviations();
+// var deviation = new Deviation;
+// var myDeviations = deviation.getDeviations();
 var nodeObjects = node.getNodes();
-console.log(deviation.getChildren(nodeObjects[0], myDeviations).length);
+// console.log(deviation.getChildren(nodeObjects[0].id, myDeviations).length);
+var myController = new Controller;
+console.log(myController.getChidren('Deviation', nodeObjects[0].id).cells.length);
 
 // const styles = {
   // fontFamily: 'sans-serif',
