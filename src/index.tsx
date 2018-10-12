@@ -24,17 +24,17 @@ import { Node, Controller } from './data/scenarioController';
 
 // generate Node data
 var node = new Node;
+var myController = new Controller;
 var columns: ColumnObject[] = [
   // node.getNodes()
-  node.getColumnObject('Node', node.getNodes())
+  myController.getColumnObject('Node', node.getNodes())
 ];
 
 // var deviation = new Deviation;
 // var myDeviations = deviation.getDeviations();
 var nodeObjects = node.getNodes();
 // console.log(deviation.getChildren(nodeObjects[0].id, myDeviations).length);
-var myController = new Controller;
-console.log(myController.getChidren('Deviation', nodeObjects[0].id).cells.length);
+console.log(myController.getChildrenColumnObject('Deviation', nodeObjects[0].id).cells.length);
 
 // const styles = {
   // fontFamily: 'sans-serif',

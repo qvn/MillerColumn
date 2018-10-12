@@ -1,8 +1,11 @@
 import * as React from 'react';
 
 export class CellObject {
-  id: number;
+  id: string;
   content: string; // content can be an object
+  parentTable: string;
+  parentId: string;
+  childrenTable: string;
 }
 
 export interface CellProps {

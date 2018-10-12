@@ -7,38 +7,21 @@ import { CellObject } from '../MillerTable/Cell';
 export class ScenarioData {
     id: string;
     parentId: string;
+    parentTable: string;
     index: number;
     type: string;
+    childrenTable: string;
     chilrenCount: number;
     text: string; 
-    getChildren (parentId: string, children: ScenarioData[]): ScenarioData[] {
-        var myChilren: ScenarioData[] = [];
-        // if (parent.chilrenCount > 0) {
-        children.forEach((child: ScenarioData) => {
-            if (parentId === child.parentId) {
-                myChilren.push(child);
-            }
-        });
-        // }
-        return myChilren;
-    }
-    getColumnObject(title: string, data: ScenarioData[]): ColumnObject {
-        return {
-            title: title,
-            cells: data.map((x: ScenarioData) => {
-                var n: CellObject = {
-                    id: x.index,
-                    content: x.text
-                };
-                return n;
-            })
-        };
-    }
+    
     getNodes(): ScenarioData[] {
         return nodes.map((node: ScenarioData) => {return node; });
     }
     getDeviations(): ScenarioData[] {
         return deviations.map((dev: ScenarioData) => {return dev; });
+    }
+    getCauses(): ScenarioData[] {
+        return causes.map((cause: ScenarioData) => {return cause; });
     }
 }
 
@@ -61,25 +44,52 @@ export class Cause {
 }
 
 export class Controller {
-    childTable: string;
-    parentTable: string;
-    parentId: string;
-    
-    getChidren(childTable: string, parentId: string, parentTable?: string ): ColumnObject {
+    getChildrenColumnObject(childTable: string, parentId: string, parentTable?: string ): ColumnObject {
         var data = new ScenarioData;
         // var thenodes = new Node;
         var myColumn = new ColumnObject;
         switch (childTable) {
             case 'Node':
-                myColumn = data.getColumnObject('Node', data.getNodes());
-                // myColumn = thenodes.getColumnObject('Node', thenodes.getNodes());
+                myColumn = this.getColumnObject('Node', data.getNodes());
                 break;
             case 'Deviation':
-                myColumn = data.getColumnObject('Deviation', data.getChildren(parentId, data.getDeviations()));
+                myColumn = this.getColumnObject('Deviation', this.getChildren(parentId, data.getDeviations()));
+                break;
+            case 'Causes':
+                console.log('get the cause!');
+                myColumn = this.getColumnObject('Cause', this.getChildren(parentId, data.getCauses()));
                 break;
             default:
                 break;
         }
         return myColumn;
+    }
+    getChildren (parentId: string, children: ScenarioData[]): ScenarioData[] {
+        var myChilren: ScenarioData[] = [];
+        // if (parent.chilrenCount > 0) {
+        children.forEach((child: ScenarioData) => {
+            if (parentId === child.parentId) {
+                myChilren.push(child);
+            }
+        });
+        // }
+        console.log(myChilren);
+        return myChilren;
+    }
+    
+    getColumnObject(title: string, data: ScenarioData[]): ColumnObject {
+        return {
+            title: title,
+            cells: data.map((x: ScenarioData) => {
+                var n: CellObject = {
+                    id: x.id,
+                    content: x.text,
+                    parentId: x.parentId,
+                    parentTable: x.parentTable,
+                    childrenTable: x.childrenTable
+                };
+                return n;
+            })
+        };
     }
 }

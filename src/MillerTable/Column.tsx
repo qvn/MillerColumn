@@ -8,6 +8,8 @@ export class ColumnObject {
 
 interface ColProps {
   column: ColumnObject;
+  addNewColumn: Function;
+  addChildrenColumn: Function;
 }
 interface ColState {
   title: string;
@@ -23,6 +25,7 @@ export class Column extends React.Component<ColProps, ColState> {
     super(props);
     this.state = {
       title: props.column.title,
+      // TODO: rethink this! The column passed in can be blank and fail. This create a bug. 
       cells: this.props.column.cells.map((cell: CellObject) => {return {cell: cell, isActive: false}; })
     };
     this.deleteCell = this.deleteCell.bind(this);
@@ -32,7 +35,7 @@ export class Column extends React.Component<ColProps, ColState> {
   }
 
   addCell() {
-    var newCell: CellObject = {id: 89, content: 'new Cell'};
+    var newCell: CellObject = {id: '89', content: 'new Cell', parentId: '', parentTable: '', childrenTable: ''};
     this.setState({
       cells: this.state.cells.concat({cell: newCell, isActive: false })
     });
@@ -62,6 +65,7 @@ export class Column extends React.Component<ColProps, ColState> {
         return cell;
       })
     });
+    this.props.addChildrenColumn(myCell);
   }
 
   viewCell(myCell: CellObject) {
