@@ -84,10 +84,11 @@ export class Column extends React.Component<ColProps, ColState> {
       <div className="col-4">
         <div>{this.props.column.title}</div>
         <div className="list-group">
-          {this.props.cells.map((cell) => (
+          {this.props.cells.map((cell, index) => (
             <Cell 
-              key={cell.id} 
+              key={index} 
               cell={cell} 
+              index={index}
               deleteCell={this.deleteCell} 
               selectCell={this.selectCell} 
               // isActive={cell.isActive} 
