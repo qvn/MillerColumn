@@ -16,12 +16,13 @@ interface ColProps {
 }
 
 interface ColState {
-  cells: {
-    // id: number,
-    // content: string,
-    cell: CellObject,
-    isActive: boolean
-  }[];
+  cells: CellObject[];
+  // cells: {
+  //   // id: number,
+  //   // content: string,
+  //   cell: CellObject,
+  //   isActive: boolean
+  // }[];
 }
 
 export class Column extends React.Component<ColProps, ColState> {
@@ -30,8 +31,8 @@ export class Column extends React.Component<ColProps, ColState> {
     this.state = {
       // TODO: rethink this! The column passed in can be blank and fail. This create a bug. 
       // Cannot embbed the state to the object since it's really just content. 
-      cells: this.props.cells.map((cell: CellObject) => {return {cell: cell, isActive: false}; })
-      // cells: this.props.cells
+      // cells: this.props.cells.map((cell: CellObject) => {return {cell: cell, isActive: false}; })
+      cells: this.props.cells
     };
     this.deleteCell = this.deleteCell.bind(this);
     this.addCell = this.addCell.bind(this);
@@ -42,7 +43,8 @@ export class Column extends React.Component<ColProps, ColState> {
   addCell() {
     var newCell: CellObject = {id: '89', content: 'new Cell', parentId: '', parentTable: '', childrenTable: ''};
     this.setState({
-      cells: this.state.cells.concat({cell: newCell, isActive: false })
+      // cells: this.state.cells.concat({cell: newCell, isActive: false })
+      cells: this.props.cells.concat(newCell)
     });
   }
 
@@ -52,7 +54,7 @@ export class Column extends React.Component<ColProps, ColState> {
     var array = [...this.state.cells]; // make a separate copy of the array
     var index = array
       .map(x => {
-        return x.cell.id;
+        return x.id;
       })
       .indexOf(cell.id);
     if (index === -1) {
@@ -66,7 +68,7 @@ export class Column extends React.Component<ColProps, ColState> {
   selectCell(myCell: CellObject) {
     this.setState({
       cells: this.state.cells.map(cell => {
-        if (cell.cell.id === myCell.id) { cell.isActive = true; } else { cell.isActive = false; }
+        // if (cell.cell.id === myCell.id) { cell.isActive = true; } else { cell.isActive = false; }
         return cell;
       })
     });
