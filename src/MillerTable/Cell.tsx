@@ -14,7 +14,7 @@ export interface CellProps {
   deleteCell: Function;
   selectCell: Function;
   viewCell: Function;
-  isActive: boolean;
+  // isActive: boolean;
 }
 
 export function Cell(props: CellProps) {
@@ -28,7 +28,7 @@ export function Cell(props: CellProps) {
       props.deleteCell(props.cell);
     }
     var divClassName = 'list-group-item list-group-item-action';
-    if (props.isActive) {divClassName += ' active'; }
+    // if (props.isActive) {divClassName += ' active'; }
     return (
       <div>
         <div className={divClassName}>

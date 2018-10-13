@@ -42,33 +42,20 @@ console.log(myController.getChildrenColumnObject('Deviation', nodeObjects[0].id)
 // };
 
 // TODO: take in only the structure that fits the column, not any
-interface AppProps {}
-interface AppState {
-loading: boolean;
-columns: ColumnObject[];
+interface AppProps {
+  // loading: boolean;
+  firstColumn: ColumnObject;
+  columns: ColumnObject[];
 }
 
-class App extends React.Component<AppProps, AppState> {
-constructor(props: AppProps) {
-  super(props);
-  this.state = {
-    loading: true,
-    columns: columns
-  };
-}
-componentDidMount() {
-  console.log('I was triggered during componentDidMount');
-}
-
-render() {
+function App(props: AppProps) {
   // add if statement to intialize container only if data is loaded
   return (
     <div >
       <div>
-        <Container.ReactObject columns={this.state.columns} />
+        <Container.ReactObject columns={props.columns} firstColumn={props.firstColumn}/>
       </div>;
     </div>
   );
 }
-}
-render(<App />, document.getElementById('root'));
+render(<App columns={columns} firstColumn={columns[0]}/>, document.getElementById('root'));

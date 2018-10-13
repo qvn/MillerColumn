@@ -11,10 +11,14 @@ import { Controller } from '../data/scenarioController';
 export namespace Container {
   interface ContainerProps {
     columns: ColumnObject[];
+    firstColumn: ColumnObject;
   }
   interface ContainerStates {
     columns: ColumnObject[];
+    columnsCount: number;
   }
+
+  var myController = new Controller;
 
   export class ReactObject extends React.Component<
     ContainerProps,
@@ -23,12 +27,13 @@ export namespace Container {
     constructor(props: ContainerProps) {
       super(props);
       this.state = {
-        
-        columns: this.props.columns
+        columns: [this.props.firstColumn],
+        columnsCount: this.props.columns.length
       };
       this.getNewColumn = this.getNewColumn.bind(this);
       this.addNewColumn = this.addNewColumn.bind(this);
       this.addChilrenColumn = this.addChilrenColumn.bind(this);
+      this.deleteColumn = this.deleteColumn.bind(this);
     }
 
     // TODO: add column if row is selected
@@ -47,39 +52,54 @@ export namespace Container {
         return newRow;
       });
       var myColumn: ColumnObject = {
-        title: 'new column',
+        title: 'new column' + Math.floor(Math.random() * 123),
         cells: myCells
       };
       console.log('myNew Column', myColumn);
       return myColumn;
     }
 
-    addNewColumn() {
+    // addNewColumn(newColumn?: ColumnObject) {
+      addNewColumn() {
       var newColumn: ColumnObject = this.getNewColumn();
+      // if (newColumn === undefined) { newColumn = this.getNewColumn(); }
       this.setState(
         {columns: this.state.columns.concat(newColumn)}
       );
     }
 
-    addChilrenColumn(cell: CellObject) {
-      var myController = new Controller;
-      var newColumn: ColumnObject = myController.getChildrenColumnObject(cell.childrenTable, cell.id);
-      console.log('add new column triggered', newColumn, cell);
-      // return newColumn;
+    deleteColumn() {
+      var newColumns: ColumnObject[] = [...this.state.columns];
+      newColumns = newColumns.slice(0, this.state.columns.length - 1);
       this.setState(
-        {columns: this.state.columns.concat(newColumn)}
+        {columns: newColumns}
       );
+    }
+
+    addChilrenColumn(cell: CellObject, columnIndex: number) {
+      console.log(columnIndex);
+      this.setState(function(state: ContainerStates, props: ContainerProps) { 
+        var newColumn = myController.getChildrenColumnObject(cell.childrenTable, cell.id);
+        console.log(newColumn);
+        return {
+          columns: state.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn)
+        };
+      });
     }
 
     render() {
       return (
-        <div className="container col-8" id="container">
-          {/* <button onClick={this.addNewColumn}>add col</button> */}
+        <div className="container" id="container">
+          <button onClick={this.addNewColumn}>add col</button>
+          <button onClick={this.deleteColumn}>del col</button>
           <div className="row d-flex">
             {this.state.columns.map((column: ColumnObject, index: number) => 
               <Column 
                 key={index} 
+                index={index}
                 column={column} 
+                cells={column.cells}
+                title={column.title}
                 addNewColumn={this.addNewColumn} 
                 addChildrenColumn={this.addChilrenColumn}
               />)

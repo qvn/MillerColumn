@@ -7,26 +7,31 @@ export class ColumnObject {
 }
 
 interface ColProps {
+  index: number;
+  title: string;
+  cells: CellObject[];
   column: ColumnObject;
   addNewColumn: Function;
   addChildrenColumn: Function;
 }
+
 interface ColState {
-  title: string;
   cells: {
     // id: number,
     // content: string,
-    cell: CellObject
+    cell: CellObject,
     isActive: boolean
   }[];
 }
+
 export class Column extends React.Component<ColProps, ColState> {
   constructor(props: ColProps) {
     super(props);
     this.state = {
-      title: props.column.title,
       // TODO: rethink this! The column passed in can be blank and fail. This create a bug. 
-      cells: this.props.column.cells.map((cell: CellObject) => {return {cell: cell, isActive: false}; })
+      // Cannot embbed the state to the object since it's really just content. 
+      cells: this.props.cells.map((cell: CellObject) => {return {cell: cell, isActive: false}; })
+      // cells: this.props.cells
     };
     this.deleteCell = this.deleteCell.bind(this);
     this.addCell = this.addCell.bind(this);
@@ -65,26 +70,28 @@ export class Column extends React.Component<ColProps, ColState> {
         return cell;
       })
     });
-    this.props.addChildrenColumn(myCell);
+    this.props.addChildrenColumn(myCell, this.props.index);
   }
 
   viewCell(myCell: CellObject) {
     console.log('View cell: ', myCell.id);
   }
 
-  renderCells() {
-    var cells = this.state.cells.map((cell) => (
-      <Cell key={cell.cell.id} cell={cell.cell} deleteCell={this.deleteCell} selectCell={this.selectCell} isActive={cell.isActive} viewCell={this.viewCell}/>
-    ));
-    return cells;
-  }
-
   render() {
     return (
-      <div>
+      <div className="col-4">
         <div>{this.props.column.title}</div>
         <div className="list-group">
-          {this.renderCells()}
+          {this.props.cells.map((cell) => (
+            <Cell 
+              key={cell.id} 
+              cell={cell} 
+              deleteCell={this.deleteCell} 
+              selectCell={this.selectCell} 
+              // isActive={cell.isActive} 
+              viewCell={this.viewCell}
+            />
+          ))}
         </div>
         <button onClick={this.addCell}>addCell</button>
       </div>
