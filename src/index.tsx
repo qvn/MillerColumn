@@ -27,7 +27,7 @@ var node = new Node;
 var myController = new Controller;
 var columns: ColumnObject[] = [
   // node.getNodes()
-  myController.getColumnObject('Node', node.getNodes())
+  myController.getColumnObject('asdasd', 'Node', node.getNodes())
 ];
 
 // var deviation = new Deviation;

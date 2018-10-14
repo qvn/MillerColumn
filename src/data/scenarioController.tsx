@@ -50,14 +50,14 @@ export class Controller {
         var myColumn = new ColumnObject;
         switch (childTable) {
             case 'Node':
-                myColumn = this.getColumnObject('Node', data.getNodes());
+                myColumn = this.getColumnObject(parentId, 'Node', data.getNodes());
                 break;
             case 'Deviation':
-                myColumn = this.getColumnObject('Deviation', this.getChildren(parentId, data.getDeviations()));
+                myColumn = this.getColumnObject(parentId, 'Deviation', this.getChildren(parentId, data.getDeviations()));
                 break;
             case 'Causes':
                 console.log('get the cause!');
-                myColumn = this.getColumnObject('Cause', this.getChildren(parentId, data.getCauses()));
+                myColumn = this.getColumnObject(parentId, 'Cause', this.getChildren(parentId, data.getCauses()));
                 break;
             default:
                 break;
@@ -77,8 +77,9 @@ export class Controller {
         return myChilren;
     }
     
-    getColumnObject(title: string, data: ScenarioData[]): ColumnObject {
+    getColumnObject(id: string, title: string, data: ScenarioData[]): ColumnObject {
         return {
+            id: id,
             title: title,
             cells: data.map((x: ScenarioData) => {
                 var n: CellObject = {
