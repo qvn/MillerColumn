@@ -33,7 +33,7 @@ export class Cell extends React.Component<CellProps, CellState> {
   }
 
   deleteCell() {
-    this.props.deleteCell(this.props.cell);
+    this.props.deleteCell(this.props.index);
   }
 
   viewCell() {
