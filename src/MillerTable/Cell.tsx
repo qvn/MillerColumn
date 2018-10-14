@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { SyntheticEvent } from 'react';
 
 export class CellObject {
   id: string;
@@ -11,40 +10,59 @@ export class CellObject {
 
 export interface CellProps {
   cell: CellObject;
+  index: number;
   deleteCell: Function;
   selectCell: Function;
   viewCell: Function;
   // isActive: boolean;
 }
+interface CellState {
+  // cell: CellObject; // cell content can be changed upon update
+}
+// TODO: create a cell_content class to fill the cell
+export class Cell extends React.Component<CellProps, CellState> {
+  constructor(props: CellProps) {
+    super(props);
+    this.deleteCell = this.deleteCell.bind(this);
+    this.selectCell = this.selectCell.bind(this);
+    this.viewCell = this.viewCell.bind(this);
+  }
 
-export function Cell(props: CellProps) {
-  // TODO: unclear what synthetic event is and whetehr you need it?
-    function selectCell(event: SyntheticEvent) {
-      event.preventDefault();
-      props.selectCell(props.cell);
-    }
-    function deleteCell(event: SyntheticEvent) {
-      event.preventDefault();
-      props.deleteCell(props.cell);
-    }
-    var divClassName = 'list-group-item list-group-item-action';
-    // if (props.isActive) {divClassName += ' active'; }
+  selectCell() {
+    this.props.selectCell(this.props.cell);
+  }
+
+  deleteCell() {
+    this.props.deleteCell(this.props.index);
+  }
+
+  viewCell() {
+    this.props.viewCell(this.props.cell);
+  }
+
+  // TODO: editor handler must promp for other things. For now, we just get content
+  // this is a complicated feature to allow inline editting.
+  // updatecellContent(cell: CellObject, content: string) {}
+
+  render() {
+    let divClassName = 'list-group-item list-group-item-action';
+    // if (this.props.isActive) {divClassName += ' active'; }
     return (
       <div>
         <div className={divClassName}>
-          <div onClick={selectCell} className="right-align">
-            {props.cell.content}
+          <div onClick={this.selectCell} className="right-align">
+            {this.props.cell.content}
           </div>
           <div>
             <a
               href="#" 
-              onClick={deleteCell}
+              onClick={this.deleteCell}
             >
               Del
             </a>
             <a 
               href="#"
-              // onClick={this.viewCell}
+              onClick={this.viewCell}
             > 
               View 
             </a>
@@ -54,7 +72,7 @@ export function Cell(props: CellProps) {
       </div>
     );
   }
+}
 
-// TODO: create a cell_content class to fill the cell
 // Binding
 // https://stackoverflow.com/questions/34226076/why-is-my-onclick-being-called-on-render-react-js

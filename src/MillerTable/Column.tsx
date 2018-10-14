@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Cell, CellObject } from './Cell';
 
 export class ColumnObject {
+  id: string; 
   title: string;
   cells: CellObject[];
 }
@@ -11,7 +12,7 @@ interface ColProps {
   title: string;
   cells: CellObject[];
   column: ColumnObject;
-  addNewColumn: Function;
+  // addNewColumn: Function;
   addChildrenColumn: Function;
 }
 
@@ -32,7 +33,7 @@ export class Column extends React.Component<ColProps, ColState> {
       // TODO: rethink this! The column passed in can be blank and fail. This create a bug. 
       // Cannot embbed the state to the object since it's really just content. 
       // cells: this.props.cells.map((cell: CellObject) => {return {cell: cell, isActive: false}; })
-      cells: this.props.cells
+      cells: props.cells
     };
     this.deleteCell = this.deleteCell.bind(this);
     this.addCell = this.addCell.bind(this);
@@ -48,21 +49,13 @@ export class Column extends React.Component<ColProps, ColState> {
     });
   }
 
-  deleteCell(cell: CellObject) {
-    // https://stackoverflow.com/questions/36326612/delete-item-from-state-array-in-react
-    console.log(cell.content);
-    var array = [...this.state.cells]; // make a separate copy of the array
-    var index = array
-      .map(x => {
-        return x.id;
-      })
-      .indexOf(cell.id);
-    if (index === -1) {
-      console.log('Cell not found');
-    } else {
-      array.splice(index, 1);
-    }
-    this.setState({ cells: array });
+  deleteCell(cellIndex: number) {
+    console.log(cellIndex);
+    var arr = [...this.state.cells];
+    arr.splice(cellIndex, 1);
+    this.setState({
+      cells: arr
+    });
   }
 
   selectCell(myCell: CellObject) {
@@ -84,10 +77,11 @@ export class Column extends React.Component<ColProps, ColState> {
       <div className="col-4">
         <div>{this.props.column.title}</div>
         <div className="list-group">
-          {this.props.cells.map((cell) => (
+          {this.state.cells.map((cell, index) => (
             <Cell 
               key={cell.id} 
               cell={cell} 
+              index={index}
               deleteCell={this.deleteCell} 
               selectCell={this.selectCell} 
               // isActive={cell.isActive} 
