@@ -14,7 +14,7 @@ export interface CellProps {
   deleteCell: Function;
   selectCell: Function;
   viewCell: Function;
-  // isActive: boolean;
+  isActive: boolean;
 }
 interface CellState {
   // cell: CellObject; // cell content can be changed upon update
@@ -46,7 +46,7 @@ export class Cell extends React.Component<CellProps, CellState> {
 
   render() {
     let divClassName = 'list-group-item list-group-item-action';
-    // if (this.props.isActive) {divClassName += ' active'; }
+    if (this.props.isActive) {divClassName += ' active'; }
     return (
       <div>
         <div className={divClassName}>

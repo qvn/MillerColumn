@@ -73,7 +73,7 @@ export namespace Container {
         {columns: newColumns}
       );
     }
-
+    // TODO: Passing column index seems clunky
     addChilrenColumn(cell: CellObject, columnIndex: number) {
       console.log(columnIndex);
       this.setState(function(state: ContainerStates, props: ContainerProps) { 

@@ -18,6 +18,7 @@ interface ColProps {
 
 interface ColState {
   cells: CellObject[];
+  activeCell?: CellObject;
   // cells: {
   //   // id: number,
   //   // content: string,
@@ -33,7 +34,8 @@ export class Column extends React.Component<ColProps, ColState> {
       // TODO: rethink this! The column passed in can be blank and fail. This create a bug. 
       // Cannot embbed the state to the object since it's really just content. 
       // cells: this.props.cells.map((cell: CellObject) => {return {cell: cell, isActive: false}; })
-      cells: props.cells
+      cells: props.cells,
+      activeCell: undefined
     };
     this.deleteCell = this.deleteCell.bind(this);
     this.addCell = this.addCell.bind(this);
@@ -60,11 +62,10 @@ export class Column extends React.Component<ColProps, ColState> {
 
   selectCell(myCell: CellObject) {
     this.setState({
-      cells: this.state.cells.map(cell => {
-        // if (cell.cell.id === myCell.id) { cell.isActive = true; } else { cell.isActive = false; }
-        return cell;
-      })
-    });
+        activeCell: myCell
+      });
+    // TODO: Passing column index seems clunky
+    // 
     this.props.addChildrenColumn(myCell, this.props.index);
   }
 
@@ -84,7 +85,7 @@ export class Column extends React.Component<ColProps, ColState> {
               index={index}
               deleteCell={this.deleteCell} 
               selectCell={this.selectCell} 
-              // isActive={cell.isActive} 
+              isActive={(cell === this.state.activeCell) ? true : false}  
               viewCell={this.viewCell}
             />
           ))}
