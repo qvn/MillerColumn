@@ -76,7 +76,14 @@ export class Column extends React.Component<ColProps, ColState> {
   render() {
     return (
       <div className="col-4">
-        <div>{this.props.column.title}</div>
+          <div className="d-flex mb-2 mt-3">
+            <div className="p-15 font-weight-bold align-middle">
+              {this.props.column.title}
+            </div>
+            <div className="ml-auto pt-15">
+              <button type="button" className="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="Add a new item" onClick={this.addCell}>New</button>
+            </div>
+        </div>
         <div className="list-group">
           {this.state.cells.map((cell, index) => (
             <Cell 
@@ -90,7 +97,6 @@ export class Column extends React.Component<ColProps, ColState> {
             />
           ))}
         </div>
-        <button onClick={this.addCell}>addCell</button>
       </div>
     );
   }

@@ -45,15 +45,21 @@ export class Cell extends React.Component<CellProps, CellState> {
   // updatecellContent(cell: CellObject, content: string) {}
 
   render() {
-    let divClassName = 'list-group-item list-group-item-action';
-    if (this.props.isActive) {divClassName += ' active'; }
+    let divClassName = 'list-group-item list-group-item-action flex-column align-items-start';
+    if (this.props.isActive) {divClassName += ' list-group-item-primary'; }
     return (
-      <div>
         <div className={divClassName}>
-          <div onClick={this.selectCell} className="right-align">
-            {this.props.cell.content}
+          <div onClick={this.selectCell}>
+            {/* TODO: this should be turn into another component for composition */}
+            {/* <div className="d-flex justify-content-between">
+              <h6 className="font-weight-bold">Node 1: Loop Reactor and Dump Tank</h6>
+            </div> */}
+              <small>
+                {/* <span className="font-weight-bold">Design Intent: </span> */}
+                {this.props.cell.content.substring(0, 30)}
+              </small>
           </div>
-          <div>
+          {/* <div>
             <a
               href="#" 
               onClick={this.deleteCell}
@@ -67,9 +73,8 @@ export class Cell extends React.Component<CellProps, CellState> {
               View 
             </a>
             <span> Edit </span>
-          </div>
+          </div> */}
         </div>
-      </div>
     );
   }
 }

@@ -91,8 +91,7 @@ export namespace Container {
       return (
         <div className="container" id="container">
           {/* <button onClick={this.addNewColumn}>add col</button> */}
-          <button onClick={this.deleteColumn}>del col</button>
-          <div className="row d-flex">
+          <div className="row d-flex max-height-100">
             {this.state.columns.map((column: ColumnObject, index: number) => 
               <Column 
                 key={column.id} 
