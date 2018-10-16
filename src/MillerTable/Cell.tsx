@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ListGroupItem, Badge } from 'reactstrap';
 
 export class CellObject {
   id: string;
@@ -17,6 +18,7 @@ export interface CellProps {
   isActive: boolean;
   // isDeletable: boolean;
   // isEditable: boolean;
+  // childrenCount: number;
 }
 interface CellState {
   // cell: CellObject; // cell content can be changed upon update
@@ -47,21 +49,15 @@ export class Cell extends React.Component<CellProps, CellState> {
   // updatecellContent(cell: CellObject, content: string) {}
 
   render() {
-    let divClassName = 'list-group-item list-group-item-action flex-column align-items-start';
-    if (this.props.isActive) {divClassName += ' list-group-item-primary'; }
     return (
-        <div onClick={this.selectCell} className={divClassName}>
-          <div>
-            {/* TODO: this should be turn into another component for composition */}
-            {/* <div className="d-flex justify-content-between">
-              <h6 className="font-weight-bold">Node 1: Loop Reactor and Dump Tank</h6>
-            </div> */}
-              <small>
-                {/* <span className="font-weight-bold">Design Intent: </span> */}
-                {this.props.cell.content.substring(0, 30)}
-              </small>
-          </div>
-        </div>
+      <ListGroupItem action={true} onClick={this.selectCell} active={this.props.isActive} className="d-flex justify-content-between">
+          <span>
+            {this.props.cell.content.substring(0, 30)}
+          </span>
+          <span>
+            <Badge >5</Badge>
+          </span>
+      </ListGroupItem>
     );
   }
 }

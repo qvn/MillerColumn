@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Cell, CellObject } from './Cell';
+import { Button, ListGroup } from 'reactstrap';
 
 export class ColumnObject {
   id: string; 
@@ -26,6 +27,12 @@ interface ColState {
   //   isActive: boolean
   // }[];
 }
+
+// const tooltip: React.ReactNode = (
+//   <Tooltip id="tooltip-top">
+//     Add a new item
+//   </Tooltip>
+// );
 
 export class Column extends React.Component<ColProps, ColState> {
   constructor(props: ColProps) {
@@ -70,14 +77,14 @@ export class Column extends React.Component<ColProps, ColState> {
     console.log('View cell: ', myCell.id);
   }
 
-  render() {
+ render() {
     return (
-      <div className="col-4">
-          <div className="d-flex mb-2 mt-3">
+      <div className="col-6">
+        <div className="d-flex mb-2 mt-3">
               <ColumnTitle> {this.props.column.title} </ColumnTitle>
-              <NewCellBtn addCell={this.addCell}/>
+              <Button size="sm" color="light" className="ml-auto pt-15" onClick={this.addCell}>New</Button>
         </div>
-        <div className="list-group">
+        <ListGroup>
             {this.state.cells.map((cell, index) => (
             <Cell 
               key={cell.id} 
@@ -89,7 +96,7 @@ export class Column extends React.Component<ColProps, ColState> {
               viewCell={this.viewCell}
             />
           ))}
-        </div>
+        </ListGroup>
       </div>
     );
   }
@@ -97,20 +104,9 @@ export class Column extends React.Component<ColProps, ColState> {
 
 function ColumnTitle(props: {children: React.ReactNode}) {
   return (
+    // ToDd: allow formatting - this require additional attributing. 
     <div className="p-15 font-weight-bold">
       {props.children}
-    </div>
-  );
-}
-
-function NewCellBtn(props: {addCell: Function}) {
-  function handleClick(event: React.SyntheticEvent) {
-    event.preventDefault();
-    props.addCell();
-  }
-  return (
-    <div className="ml-auto pt-15">
-      <button type="button" className="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="Add a new item" onClick={handleClick}>New</button>
     </div>
   );
 }
