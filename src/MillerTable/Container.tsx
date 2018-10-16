@@ -75,10 +75,8 @@ export namespace Container {
     }
     // TODO: Passing column index seems clunky
     addChilrenColumn(cell: CellObject, columnIndex: number) {
-      console.log(columnIndex);
       this.setState(function(state: ContainerStates, props: ContainerProps) { 
         var newColumn = myController.getChildrenColumnObject(cell.childrenTable, cell.id);
-        console.log(newColumn);
         return {
           columns: state.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn)
         };

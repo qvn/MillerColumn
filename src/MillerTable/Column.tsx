@@ -63,8 +63,6 @@ export class Column extends React.Component<ColProps, ColState> {
     this.setState({
         activeCell: myCell
       });
-    // TODO: Passing column index seems clunky
-    // 
     this.props.addChildrenColumn(myCell, this.props.index);
   }
 
@@ -85,7 +83,7 @@ export class Column extends React.Component<ColProps, ColState> {
               key={cell.id} 
               cell={cell} 
               index={index}
-              deleteCell={this.deleteCell} 
+              deleteCell={this.deleteCell} // Change to use isDeleteAble from server
               selectCell={this.selectCell} 
               isActive={(cell === this.state.activeCell) ? true : false}  
               viewCell={this.viewCell}

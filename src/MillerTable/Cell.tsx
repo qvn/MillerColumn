@@ -15,6 +15,8 @@ export interface CellProps {
   selectCell: Function;
   viewCell: Function;
   isActive: boolean;
+  // isDeletable: boolean;
+  // isEditable: boolean;
 }
 interface CellState {
   // cell: CellObject; // cell content can be changed upon update
@@ -48,8 +50,8 @@ export class Cell extends React.Component<CellProps, CellState> {
     let divClassName = 'list-group-item list-group-item-action flex-column align-items-start';
     if (this.props.isActive) {divClassName += ' list-group-item-primary'; }
     return (
-        <div className={divClassName}>
-          <div onClick={this.selectCell}>
+        <div onClick={this.selectCell} className={divClassName}>
+          <div>
             {/* TODO: this should be turn into another component for composition */}
             {/* <div className="d-flex justify-content-between">
               <h6 className="font-weight-bold">Node 1: Loop Reactor and Dump Tank</h6>
@@ -59,21 +61,6 @@ export class Cell extends React.Component<CellProps, CellState> {
                 {this.props.cell.content.substring(0, 30)}
               </small>
           </div>
-          {/* <div>
-            <a
-              href="#" 
-              onClick={this.deleteCell}
-            >
-              Del
-            </a>
-            <a 
-              href="#"
-              onClick={this.viewCell}
-            > 
-              View 
-            </a>
-            <span> Edit </span>
-          </div> */}
         </div>
     );
   }
