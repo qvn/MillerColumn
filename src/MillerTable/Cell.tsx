@@ -52,16 +52,12 @@ export class Cell extends React.Component<CellProps, CellState> {
   render() {
     return (
       <ListGroupItem action={true} onClick={this.selectCell} active={this.props.isActive} className="d-flex justify-content-between">
-          <div>
-            {this.props.cell.content.substring(0, 30)}
-          </div>
-            <div>
-            {/* <Badge>{this.props.cell.childrenCount}</Badge> */}
-            </div>
-            <div>
-
-            <CellActionButtonGroup hasView={true} hasDelete={false} hasCopy={true} hasEdit={false} size="sm" color="light"/>
-</div>
+        <div>
+          {this.props.cell.content.substring(0, 30)}
+        </div>
+        <div className="">
+          <CellActionButtonGroup hideAll={false} hasView={true} hasDelete={true} hasCopy={true} hasEdit={true} size="sm" color="light"/>
+        </div>
       </ListGroupItem>
     );
   }

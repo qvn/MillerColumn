@@ -13,6 +13,7 @@ interface CellACtionButtonGroupProps {
   size?: string;
   color?: string;
   className?: string;
+  hideAll?: boolean;
 }
 
 interface CellActionButtonGroupStates {
@@ -59,16 +60,12 @@ export class CellActionButtonGroup extends React.Component<CellACtionButtonGroup
 
   iconGroup () {
     // TODO: tool tips
-    const deleteBtn = (this.props.hasDelete) ? (<Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faTrashAlt} /></Button> ) : '';
-    const editBtn = (this.props.hasEdit) ? (<Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faPencilAlt} /></Button> ) : '';
-    const copyBtn = (this.props.hasCopy) ? (<Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faCopy} /></Button> ) : '';
-    const viewBtn = (this.props.hasView) ? (<Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faEye} /></Button> ) : '';
     return (
       <ButtonGroup>
-        {deleteBtn}
-        {editBtn}
-        {copyBtn}
-        {viewBtn}
+        {(this.props.hasDelete) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faTrashAlt} /></Button>}
+        {(this.props.hasEdit) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faPencilAlt} /></Button>}
+        {(this.props.hasCopy) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faCopy} /></Button>}
+        {(this.props.hasView) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faEye} /></Button>}
       </ButtonGroup>
     );
   }
