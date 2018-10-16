@@ -7,6 +7,7 @@ export class CellObject {
   parentTable: string;
   parentId: string;
   childrenTable: string;
+  childrenCount: number;
 }
 
 export interface CellProps {
@@ -18,7 +19,6 @@ export interface CellProps {
   isActive: boolean;
   // isDeletable: boolean;
   // isEditable: boolean;
-  // childrenCount: number;
 }
 interface CellState {
   // cell: CellObject; // cell content can be changed upon update
@@ -55,7 +55,7 @@ export class Cell extends React.Component<CellProps, CellState> {
             {this.props.cell.content.substring(0, 30)}
           </span>
           <span>
-            <Badge >5</Badge>
+            <Badge>{this.props.cell.childrenCount}</Badge>
           </span>
       </ListGroupItem>
     );

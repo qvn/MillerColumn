@@ -83,6 +83,7 @@ export class Controller {
             title: title,
             cells: data.map((x: ScenarioData) => {
                 var n: CellObject = {
+                    childrenCount: x.chilrenCount,
                     id: x.id,
                     content: x.text,
                     parentId: x.parentId,

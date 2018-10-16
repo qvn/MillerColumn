@@ -12,7 +12,7 @@ export var nodes = [
     {
       'id': '9a5a5d06-38e2-47c2-8b56-94bcc99c2695',
       'type': 'Node',
-      'chilrenCount': 2,
+      'chilrenCount': 0,
       'parentTable': 'PHA',
       'childrenTable': 'Deviation',
       'index': 1,
@@ -22,7 +22,7 @@ export var nodes = [
     {
       'id': '6f91d9e5-2296-45cf-971c-ee11facd1df5',
       'type': 'Node',
-      'chilrenCount': 8,
+      'chilrenCount': 0,
       'parentTable': 'PHA',
       'childrenTable': 'Deviation',
       'index': 2,
@@ -32,7 +32,7 @@ export var nodes = [
     {
       'id': 'bc342812-c064-4b63-93e4-8691dc94b0fd',
       'type': 'Node',
-      'chilrenCount': 1,
+      'chilrenCount': 5,
       'parentTable': 'PHA',
       'childrenTable': 'Deviation',
       'index': 3,
@@ -42,7 +42,7 @@ export var nodes = [
     {
       'id': '527e19a7-7a2e-4931-b034-cd19f9ccaa3c',
       'type': 'Node',
-      'chilrenCount': 10,
+      'chilrenCount': 0,
       'parentTable': 'PHA',
       'childrenTable': 'Deviation',
       'index': 4,
@@ -52,7 +52,7 @@ export var nodes = [
     {
       'id': '44048933-3a4a-4df2-904e-18b13cda76df',
       'type': 'Node',
-      'chilrenCount': 5,
+      'chilrenCount': 0,
       'parentTable': 'PHA',
       'childrenTable': 'Deviation',
       'index': 5,

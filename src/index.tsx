@@ -54,7 +54,7 @@ function App(props: AppProps) {
     <div >
       <div>
         <Container.ReactObject columns={props.columns} firstColumn={props.firstColumn}/>
-      </div>;
+      </div>
     </div>
   );
 }

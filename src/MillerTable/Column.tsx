@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Cell, CellObject } from './Cell';
-import { Button, ListGroup } from 'reactstrap';
+import { ListGroup, Label, FormGroup, Input } from 'reactstrap';
+import ModalExample from './Modal';
 
 export class ColumnObject {
   id: string; 
@@ -51,7 +52,7 @@ export class Column extends React.Component<ColProps, ColState> {
   }
 
   addCell() {
-    var newCell: CellObject = {id: '89', content: 'new Cell', parentId: '', parentTable: '', childrenTable: ''};
+    var newCell: CellObject = {id: '89', content: 'new Cell', parentId: '', parentTable: '', childrenTable: '', childrenCount: 0};
     this.setState({
       cells: this.state.cells.concat(newCell)
     });
@@ -81,32 +82,32 @@ export class Column extends React.Component<ColProps, ColState> {
     return (
       <div className="col-6">
         <div className="d-flex mb-2 mt-3">
-              <ColumnTitle> {this.props.column.title} </ColumnTitle>
-              <Button size="sm" color="light" className="ml-auto pt-15" onClick={this.addCell}>New</Button>
+          <div className="p-15 font-weight-bold">
+            {this.props.column.title}
+          </div>
+          <span className="ml-auto pt-15">
+            <ModalExample buttonLabel="New" buttonColor="light" buttonSize="sm" modalTitle={this.props.title}>
+              <FormGroup>
+                <Label for="exampleText">{this.props.title + ' Name'}</Label>
+                <Input type="text" name="name" id={this.props.column.id + 'Name'} />
+              </FormGroup>
+            </ModalExample>
+          </span>
         </div>
-        <ListGroup>
+          <ListGroup>
             {this.state.cells.map((cell, index) => (
-            <Cell 
-              key={cell.id} 
-              cell={cell} 
-              index={index}
-              deleteCell={this.deleteCell} // Change to use isDeleteAble from server
-              selectCell={this.selectCell} 
-              isActive={(cell === this.state.activeCell) ? true : false}  
-              viewCell={this.viewCell}
-            />
-          ))}
-        </ListGroup>
+              <Cell 
+                key={cell.id} 
+                cell={cell} 
+                index={index}
+                deleteCell={this.deleteCell} // Change to use isDeleteAble from server
+                selectCell={this.selectCell} 
+                isActive={(cell === this.state.activeCell) ? true : false}  
+                viewCell={this.viewCell}
+              />
+            ))}
+          </ListGroup>
       </div>
     );
   }
-}
-
-function ColumnTitle(props: {children: React.ReactNode}) {
-  return (
-    // ToDd: allow formatting - this require additional attributing. 
-    <div className="p-15 font-weight-bold">
-      {props.children}
-    </div>
-  );
 }
