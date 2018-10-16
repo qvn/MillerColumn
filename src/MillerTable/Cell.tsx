@@ -23,14 +23,19 @@ export interface CellProps {
 }
 interface CellState {
   // cell: CellObject; // cell content can be changed upon update
+  hideActionBtnGroup: boolean;
 }
 // TODO: create a cell_content class to fill the cell
 export class Cell extends React.Component<CellProps, CellState> {
   constructor(props: CellProps) {
     super(props);
+    this.state = {
+      hideActionBtnGroup: true 
+    };
     this.deleteCell = this.deleteCell.bind(this);
     this.selectCell = this.selectCell.bind(this);
     this.viewCell = this.viewCell.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
   }
 
   selectCell() {
@@ -45,18 +50,28 @@ export class Cell extends React.Component<CellProps, CellState> {
     this.props.viewCell(this.props.cell);
   }
 
+  handleMouseOver() {
+    this.setState(this.toggleHoverState);
+  }
+
+  toggleHoverState(prevState: CellState) {
+    return {
+      hideActionBtnGroup: !prevState.hideActionBtnGroup
+    };
+  }
+
   // TODO: editor handler must promp for other things. For now, we just get content
   // this is a complicated feature to allow inline editting.
   // updatecellContent(cell: CellObject, content: string) {}
 
   render() {
     return (
-      <ListGroupItem action={true} onClick={this.selectCell} active={this.props.isActive} className="d-flex justify-content-between">
+      <ListGroupItem action={true} onClick={this.selectCell} active={this.props.isActive} className="d-flex justify-content-between" onMouseEnter={this.handleMouseOver} onMouseLeave={this.handleMouseOver}>
         <div>
           {this.props.cell.content.substring(0, 30)}
         </div>
         <div className="">
-          <CellActionButtonGroup hideAll={false} hasView={true} hasDelete={true} hasCopy={true} hasEdit={true} size="sm" color="light"/>
+          <CellActionButtonGroup hideAll={this.state.hideActionBtnGroup} hasView={true} hasDelete={true} hasCopy={true} hasEdit={true} size="sm" color="light"/>
         </div>
       </ListGroupItem>
     );

@@ -9,6 +9,7 @@ interface Props {
     buttonLabel: string;
     buttonColor: string;
     buttonSize: string;
+    buttonTooltip?: string;
     keyboard?: boolean;
     className?: string;
 }
@@ -36,7 +37,7 @@ class ModalExample extends React.Component<Props, States> {
   render() {
     return (
       <div>
-        <Button size={this.props.buttonSize} color={this.props.buttonColor} onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        <Button size={this.props.buttonSize} color={this.props.buttonColor} onClick={this.toggle} data-toggle="tooltip" title={this.props.buttonTooltip}>{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>{this.props.modalTitle}</ModalHeader>
           <ModalBody>

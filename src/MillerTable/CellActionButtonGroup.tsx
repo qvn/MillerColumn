@@ -59,13 +59,13 @@ export class CellActionButtonGroup extends React.Component<CellACtionButtonGroup
   }
 
   iconGroup () {
-    // TODO: tool tips
+    // TODO: tool tips in reactjs and avoid hard coding
     return (
       <ButtonGroup>
-        {(this.props.hasDelete) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faTrashAlt} /></Button>}
-        {(this.props.hasEdit) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faPencilAlt} /></Button>}
-        {(this.props.hasCopy) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faCopy} /></Button>}
-        {(this.props.hasView) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size}><FontAwesomeIcon icon={faEye} /></Button>}
+        {(this.props.hasView) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size} data-toggle="tooltip" data-placement="top" title="View Details"><FontAwesomeIcon icon={faEye} /></Button>}
+        {(this.props.hasEdit) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size} data-toggle="tooltip" data-placement="top" title="Edit Details"><FontAwesomeIcon icon={faPencilAlt} /></Button>}
+        {(this.props.hasDelete) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size} data-toggle="tooltip" data-placement="top" title="Delete Item"><FontAwesomeIcon icon={faTrashAlt} /></Button>}
+        {(this.props.hasCopy) && (!this.props.hideAll) && <Button color={this.props.color} size={this.props.size} data-toggle="tooltip" data-placement="top" title="Copy Item and All Children"><FontAwesomeIcon icon={faCopy} /></Button>}
       </ButtonGroup>
     );
   }

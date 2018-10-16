@@ -86,7 +86,7 @@ export class Column extends React.Component<ColProps, ColState> {
             {this.props.column.title}
           </div>
           <span className="ml-auto pt-15">
-            <ModalExample buttonLabel="New" buttonColor="light" buttonSize="sm" modalTitle={this.props.title}>
+            <ModalExample buttonLabel="New" buttonColor="light" buttonSize="sm" buttonTooltip="Add new item" modalTitle={this.props.title}>
               <FormGroup>
                 <Label for="exampleText">{this.props.title + ' Name'}</Label>
                 <Input type="text" name="name" id={this.props.column.id + 'Name'} />
