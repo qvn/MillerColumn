@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { ListGroupItem, Badge } from 'reactstrap';
+import { ListGroupItem } from 'reactstrap';
+import { CellActionButtonGroup } from './CellActionButtonGroup';
 
 export class CellObject {
   id: string;
@@ -51,16 +52,19 @@ export class Cell extends React.Component<CellProps, CellState> {
   render() {
     return (
       <ListGroupItem action={true} onClick={this.selectCell} active={this.props.isActive} className="d-flex justify-content-between">
-          <span>
+          <div>
             {this.props.cell.content.substring(0, 30)}
-          </span>
-          <span>
-            <Badge>{this.props.cell.childrenCount}</Badge>
-          </span>
+          </div>
+            <div>
+            {/* <Badge>{this.props.cell.childrenCount}</Badge> */}
+            </div>
+            <div>
+
+            <CellActionButtonGroup hasView={true} hasDelete={false} hasCopy={true} hasEdit={false} size="sm" color="light"/>
+</div>
       </ListGroupItem>
     );
   }
 }
-
 // Binding
 // https://stackoverflow.com/questions/34226076/why-is-my-onclick-being-called-on-render-react-js
