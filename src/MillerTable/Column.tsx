@@ -46,8 +46,7 @@ export class Column extends React.Component<ColProps, ColState> {
   addCell() {
     var newCell: CellObject = {id: '89', content: 'new Cell', parentId: '', parentTable: '', childrenTable: ''};
     this.setState({
-      // cells: this.state.cells.concat({cell: newCell, isActive: false })
-      cells: this.props.cells.concat(newCell)
+      cells: this.state.cells.concat(newCell)
     });
   }
 
@@ -77,15 +76,11 @@ export class Column extends React.Component<ColProps, ColState> {
     return (
       <div className="col-4">
           <div className="d-flex mb-2 mt-3">
-            <div className="p-15 font-weight-bold align-middle">
-              {this.props.column.title}
-            </div>
-            <div className="ml-auto pt-15">
-              <button type="button" className="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="Add a new item" onClick={this.addCell}>New</button>
-            </div>
+              <ColumnTitle> {this.props.column.title} </ColumnTitle>
+              <NewCellBtn addCell={this.addCell}/>
         </div>
         <div className="list-group">
-          {this.state.cells.map((cell, index) => (
+            {this.state.cells.map((cell, index) => (
             <Cell 
               key={cell.id} 
               cell={cell} 
@@ -100,4 +95,24 @@ export class Column extends React.Component<ColProps, ColState> {
       </div>
     );
   }
+}
+
+function ColumnTitle(props: {children: React.ReactNode}) {
+  return (
+    <div className="p-15 font-weight-bold">
+      {props.children}
+    </div>
+  );
+}
+
+function NewCellBtn(props: {addCell: Function}) {
+  function handleClick(event: React.SyntheticEvent) {
+    event.preventDefault();
+    props.addCell();
+  }
+  return (
+    <div className="ml-auto pt-15">
+      <button type="button" className="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="Add a new item" onClick={handleClick}>New</button>
+    </div>
+  );
 }
