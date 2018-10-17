@@ -3,7 +3,7 @@ import { ButtonGroup, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPencilAlt, faCopy, faEye } from '@fortawesome/free-solid-svg-icons';
 import Button from 'reactstrap/lib/Button';
-
+// TODO: refactor into two different component instead of one for both dropdown and icon button groups
 interface CellACtionButtonGroupProps {
   hasView?: boolean;
   hasDelete?: boolean;

@@ -73,8 +73,7 @@ export class Column extends React.Component<ColProps, ColState> {
     this.setState({
         activeCell: myCell
       });
-    // TODO: do a better check for children table
-    if (myCell.childrenTable !== undefined || myCell.childrenTable !== '') {
+    if (myCell.childrenTable !== undefined && myCell.childrenTable !== '') {
       this.props.addChildrenColumn(myCell, this.props.index);
     }
   }

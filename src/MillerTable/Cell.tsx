@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListGroupItem } from 'reactstrap';
+import { ListGroupItem, Badge } from 'reactstrap';
 import { CellActionButtonGroup } from './CellActionButtonGroup';
 
 export class CellObject {
@@ -72,6 +72,9 @@ export class Cell extends React.Component<CellProps, CellState> {
         </div>
         <div className="">
           <CellActionButtonGroup hideAll={this.state.hideActionBtnGroup} hasView={true} hasDelete={true} hasCopy={true} hasEdit={true} size="sm" color="light"/>
+        <span>
+        {(this.props.cell.childrenTable !== undefined) && <Badge>{this.props.cell.childrenCount}</Badge>}
+        </span>
         </div>
       </ListGroupItem>
     );
