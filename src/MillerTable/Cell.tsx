@@ -67,14 +67,13 @@ export class Cell extends React.Component<CellProps, CellState> {
   render() {
     return (
       <ListGroupItem action={true} onClick={this.selectCell} active={this.props.isActive} className="d-flex justify-content-between" onMouseEnter={this.handleMouseOver} onMouseLeave={this.handleMouseOver}>
-        <div>
-          {this.props.cell.content.substring(0, 30)}
-        </div>
-        <div className="">
-          <CellActionButtonGroup hideAll={this.state.hideActionBtnGroup} hasView={true} hasDelete={true} hasCopy={true} hasEdit={true} size="sm" color="light"/>
         <span>
-        {(this.props.cell.childrenTable !== undefined) && <Badge>{this.props.cell.childrenCount}</Badge>}
+          {this.props.cell.content.substring(0, 30)}
         </span>
+        <div>
+          <CellActionButtonGroup hideAll={this.state.hideActionBtnGroup} hasView={true} hasDelete={true} hasCopy={true} hasEdit={true} size="sm" color="light"/>
+          {/* This needs to be a "has children" the cell properties is very presumptous here */}
+          {(this.props.cell.childrenTable !== undefined) && <Badge>{this.props.cell.childrenCount}</Badge>}
         </div>
       </ListGroupItem>
     );
