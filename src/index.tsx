@@ -45,17 +45,12 @@ console.log(myController.getChildrenColumnObject('Deviation', nodeObjects[0].id)
 interface AppProps {
   // loading: boolean;
   firstColumn: ColumnObject;
-  columns: ColumnObject[];
 }
 
 function App(props: AppProps) {
   // add if statement to intialize container only if data is loaded
   return (
-    <div >
-      <div>
-        <Container.ReactObject columns={props.columns} firstColumn={props.firstColumn}/>
-      </div>
-    </div>
+    <Container.ReactObject firstColumn={props.firstColumn}/>
   );
 }
-render(<App columns={columns} firstColumn={columns[0]}/>, document.getElementById('root'));
+render(<App firstColumn={columns[0]}/>, document.getElementById('root'));

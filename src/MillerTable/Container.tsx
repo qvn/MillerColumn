@@ -10,7 +10,6 @@ import { Controller } from '../data/scenarioController';
 
 export namespace Container {
   interface ContainerProps {
-    columns: ColumnObject[];
     firstColumn: ColumnObject;
   }
   interface ContainerStates {
