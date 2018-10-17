@@ -6,6 +6,7 @@ import ModalExample from './Modal';
 export class ColumnObject {
   id: string; 
   title: string;
+  // TODO: check if has childrenTable. If there are no children table, there is no need to call!
   cells: CellObject[];
 }
 
@@ -49,6 +50,7 @@ export class Column extends React.Component<ColProps, ColState> {
     this.addCell = this.addCell.bind(this);
     this.selectCell = this.selectCell.bind(this);
     this.viewCell = this.viewCell.bind(this);
+    this.childrenCells = this.childrenCells.bind(this);
   }
 
   addCell() {
@@ -71,29 +73,21 @@ export class Column extends React.Component<ColProps, ColState> {
     this.setState({
         activeCell: myCell
       });
-    this.props.addChildrenColumn(myCell, this.props.index);
+    // TODO: do a better check for children table
+    if (myCell.childrenTable !== undefined || myCell.childrenTable !== '') {
+      this.props.addChildrenColumn(myCell, this.props.index);
+    }
   }
 
   viewCell(myCell: CellObject) {
     console.log('View cell: ', myCell.id);
   }
 
- render() {
-    return (
-      <div className="col-6">
-        <div className="d-flex mb-2 mt-3">
-          <div className="p-15 font-weight-bold">
-            {this.props.column.title}
-          </div>
-          <span className="ml-auto pt-15">
-            <ModalExample buttonLabel="New" buttonColor="light" buttonSize="sm" buttonTooltip="Add new item" modalTitle={this.props.title}>
-              <FormGroup>
-                <Label for="exampleText">{this.props.title + ' Name'}</Label>
-                <Input type="text" name="name" id={this.props.column.id + 'Name'} />
-              </FormGroup>
-            </ModalExample>
-          </span>
-        </div>
+  childrenCells() {
+    if (this.state.cells === undefined || this.state.cells.length === 0) {
+      return (<span>{'No ' + this.props.title + ' found.'}</span>);
+    } else {
+      return (
           <ListGroup>
             {this.state.cells.map((cell, index) => (
               <Cell 
@@ -107,7 +101,27 @@ export class Column extends React.Component<ColProps, ColState> {
               />
             ))}
           </ListGroup>
-      </div>
+      );
+    }
+  }
+ render() {
+    return (
+      <div className="col-6">
+        <div className="d-flex mb-2 mt-3">
+          <div className="p-15 font-weight-bold">
+            {this.props.column.title}
+          </div>
+          <span className="ml-auto pt-15">
+            <ModalExample buttonLabel="New" buttonColor="light" buttonSize="sm" modalTitle={this.props.title}>
+              <FormGroup>
+                <Label for="exampleText">{this.props.title + ' Name'}</Label>
+                <Input type="text" name="name" id={this.props.column.id + 'Name'} />
+              </FormGroup>
+            </ModalExample>
+          </span>
+        </div>
+          {this.childrenCells()}
+     </div>
     );
   }
 }

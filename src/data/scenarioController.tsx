@@ -50,16 +50,17 @@ export class Controller {
         var myColumn = new ColumnObject;
         switch (childTable) {
             case 'Node':
-                myColumn = this.getColumnObject(parentId, 'Node', data.getNodes());
+                myColumn = this.getColumnObject(parentId, childTable, data.getNodes());
                 break;
             case 'Deviation':
-                myColumn = this.getColumnObject(parentId, 'Deviation', this.getChildren(parentId, data.getDeviations()));
+                myColumn = this.getColumnObject(parentId, childTable, this.getChildren(parentId, data.getDeviations()));
                 break;
             case 'Causes':
-                console.log('get the cause!');
-                myColumn = this.getColumnObject(parentId, 'Cause', this.getChildren(parentId, data.getCauses()));
+                console.log('get the cause!', childTable);
+                myColumn = this.getColumnObject(parentId, childTable, this.getChildren(parentId, data.getCauses()));
                 break;
             default:
+                // TODO: handle the case where it is the last child
                 break;
         }
         return myColumn;
