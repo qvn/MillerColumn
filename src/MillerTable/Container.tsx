@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Column, ColumnObject } from './Column';
 import { CellObject } from './Cell';
-import { Controller } from '../data/scenarioController';
+import { ScenarioData } from '../data/scenarioController';
 
 // Data Controller: need to update to call the right controller
 // import { DataController } from '../data/scenarioController';
 // var controller = new DataController;
 // var firstColumn: ColumnObject = DataController.getNodes();
+
+var myController = new ScenarioData;
 
 export namespace Container {
   interface ContainerProps {
@@ -15,8 +17,6 @@ export namespace Container {
   interface ContainerStates {
     columns: ColumnObject[];
   }
-
-  var myController = new Controller;
 
   export class ReactObject extends React.Component<
     ContainerProps,
@@ -32,39 +32,6 @@ export namespace Container {
       this.deleteColumn = this.deleteColumn.bind(this);
     }
 
-    // TODO: add column if row is selected
-    // getNewColumn(
-    //   childrenTable?: string,
-    //   parentId?: string,
-    // ): ColumnObject {
-    //   var myCells = ['1', '2', '3', '4'].map(item => {
-    //     var newRow: CellObject = {
-    //       id: item,
-    //       content: 'content',
-    //       parentId: '',
-    //       parentTable: '',
-    //       childrenTable: ''
-    //     };
-    //     return newRow;
-    //   });
-    //   var myColumn: ColumnObject = {
-    //     id: guid(),
-    //     title: 'new column' + Math.floor(Math.random() * 123),
-    //     cells: myCells
-    //   };
-    //   console.log('myNew Column', myColumn);
-    //   return myColumn;
-    // }
-
-    // addNewColumn(newColumn?: ColumnObject) {
-    //   // addNewcolumn() {
-    //   // var newcolumn: columnobject = this.getnewcolumn();
-    //   // // if (newcolumn === undefined) { newcolumn = this.getnewcolumn(); }
-    //   // this.setstate(
-    //   //   {columns: this.state.columns.concat(newcolumn)}
-    //   // );
-    // }
-
     deleteColumn() {
       var newColumns: ColumnObject[] = [...this.state.columns];
       newColumns = newColumns.slice(0, this.state.columns.length - 1);
@@ -74,11 +41,12 @@ export namespace Container {
     }
     // TODO: Passing column index seems clunky
     addChilrenColumn(cell: CellObject, columnIndex: number) {
-      this.setState(function(state: ContainerStates, props: ContainerProps) { 
-        var newColumn = myController.getChildrenColumnObject(cell.childrenTable, cell.id);
-        return {
-          columns: state.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn)
-        };
+        this.setState(function(state: ContainerStates, props: ContainerProps) { 
+          var newColumn: ColumnObject | null = (myController.getChildren(cell.id, cell.childrenTable));
+          var newColumns: ColumnObject[] = (newColumn === null) ? state.columns : state.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn);
+          return {
+            columns: newColumns
+          };
       });
     }
     // note: key must use the ID so that component understands it will refresh upon a new key (sever returns a new Id, whcih trigger the refresh of 

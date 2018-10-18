@@ -4,6 +4,16 @@ import { deviations } from  './scenarioDeviation';
 import { ColumnObject } from '../MillerTable/Column';
 import { CellObject } from '../MillerTable/Cell';
 
+class Guid {
+    static newGuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c: string) {
+            // tslint:disable-next-line:no-bitwise
+            const r = Math.random() * 16 | 0, v = c === 'x' ? r : ( r & 0x3 | 0x8 );
+            return v.toString(16);
+        });
+    }
+}
+
 export class ScenarioData {
     id: string;
     parentId: string;
@@ -14,70 +24,26 @@ export class ScenarioData {
     chilrenCount: number;
     text: string; 
     
-    getNodes(): ScenarioData[] {
-        return nodes.map((node: ScenarioData) => {return node; });
+    getNodes(): ColumnObject {
+        var randomGuid = Guid.newGuid();
+        return this.getColumnObject(randomGuid, 'Node', nodes.map((node: ScenarioData) => {return node; }));
     }
-    getDeviations(): ScenarioData[] {
-        return deviations.map((dev: ScenarioData) => {return dev; });
+    getDeviations(nodeId: string): ColumnObject {
+        return this.getColumnObject(nodeId, 'Deviation', (deviations.map((dev: ScenarioData) => {return dev; }).filter((dev: ScenarioData) => (dev.parentId === nodeId))));
     }
-    getCauses(): ScenarioData[] {
-        return causes.map((cause: ScenarioData) => {return cause; });
-    }
-}
-
-export class Node extends ScenarioData {
-    getNodes(): ScenarioData[] {
-        return nodes.map((node: ScenarioData) => {return node; });
-    }
-}
-
-export class Deviation extends ScenarioData {
-    getDeviations(): ScenarioData[] {
-        return deviations.map((dev: ScenarioData) => {return dev; });
-    }
-}
-
-export class Cause {
-    getCauses(): ScenarioData[] {
-        return causes.map((cause: ScenarioData) => {return cause; });
-    }
-}
-
-export class Controller {
-    getChildrenColumnObject(childTable: string, parentId: string, parentTable?: string ): ColumnObject {
-        var data = new ScenarioData;
-        // var thenodes = new Node;
-        var myColumn = new ColumnObject;
-        switch (childTable) {
-            case 'Node':
-                myColumn = this.getColumnObject(parentId, childTable, data.getNodes());
-                break;
-            case 'Deviation':
-                myColumn = this.getColumnObject(parentId, childTable, this.getChildren(parentId, data.getDeviations()));
-                break;
-            case 'Causes':
-                console.log('get the cause!', childTable);
-                myColumn = this.getColumnObject(parentId, childTable, this.getChildren(parentId, data.getCauses()));
-                break;
-            default:
-                // TODO: handle the case where it is the last child
-                break;
-        }
-        return myColumn;
-    }
-    getChildren (parentId: string, children: ScenarioData[]): ScenarioData[] {
-        var myChilren: ScenarioData[] = [];
-        // if (parent.chilrenCount > 0) {
-        children.forEach((child: ScenarioData) => {
-            if (parentId === child.parentId) {
-                myChilren.push(child);
-            }
-        });
-        // }
-        console.log(myChilren);
-        return myChilren;
-    }
+    getCauses(devId: string): ColumnObject {
+        return this.getColumnObject(devId, 'Cause', causes.map((cause: ScenarioData) => {return cause; }).filter((cause: ScenarioData) => (cause.parentId === devId)));
+    } 
     
+    getChildren(parentId: string, childrenTable: string): ColumnObject | null {
+        switch (childrenTable) {
+            // case 'Node': return this.getNodes(); 
+            case 'Deviation': return this.getDeviations(parentId); 
+            case 'Causes': return this.getCauses(parentId); 
+            default: return null; 
+        }
+    }
+
     getColumnObject(id: string, title: string, data: ScenarioData[]): ColumnObject {
         return {
             id: id,
@@ -95,4 +61,5 @@ export class Controller {
             })
         };
     }
+
 }
