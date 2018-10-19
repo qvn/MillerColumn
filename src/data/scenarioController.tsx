@@ -14,6 +14,73 @@ class Guid {
     }
 }
 
+export namespace ScenarioAPI {
+    export interface Serializable<T> {
+        deserialize(input: Object): T;
+    }
+
+    // class NodeData {
+    //     id: string;
+    //     parentId: string;
+    //     parentTable: string;
+    //     index: number;
+    //     type: string;
+    //     childrenTable: string;
+    //     chilrenCount: number;
+    //     text: string; 
+    // }
+
+    export class Scenario implements Serializable<Scenario> {
+        id: string = '';
+        parentId: string = '';
+        parentTable: string = '';
+        index: number = 0;
+        type: string = '';
+        // hasChildren: boolean;
+        childrenTable: string = '';
+        chilrenCount: number = 0;
+        text: string = ''; 
+
+        // constructor(input?: Scenario) {
+        //     if (input) {
+        //         this.deserialize(input);
+        //     }
+        // }
+
+        deserialize(input: Scenario) {
+            // Note: keys must be intialize with values to be found in the Object.keys, instantiation isn't enough
+            const keys = Object.keys(this);
+            for (const key of keys) {
+                if (input.hasOwnProperty(key)) {
+                    this[key] = input[key];
+                }
+            }
+            return this;
+        } 
+    }
+
+    export class Node extends Scenario {
+
+    }
+
+    export class Deviation extends Scenario {
+        // TODO: Deviation class has more attributes than the Base class
+    }
+
+    export class Cause extends Scenario {
+
+    }
+    
+    export class Data implements Serializable<Data> {
+        scenarios: Scenario[];
+        deserialize (input: Scenario[]) {
+            this.scenarios = input.map((scenario) => new Scenario().deserialize(scenario));
+            return this;
+        }
+
+    }
+}
+
 export class ScenarioData {
     id: string;
     parentId: string;

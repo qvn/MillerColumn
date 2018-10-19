@@ -30,12 +30,6 @@ interface ColState {
   // }[];
 }
 
-// const tooltip: React.ReactNode = (
-//   <Tooltip id="tooltip-top">
-//     Add a new item
-//   </Tooltip>
-// );
-
 export class Column extends React.Component<ColProps, ColState> {
   constructor(props: ColProps) {
     super(props);
