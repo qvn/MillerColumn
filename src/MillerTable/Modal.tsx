@@ -1,9 +1,11 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
 import * as React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, Button, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label } from 'reactstrap';
 
 interface Props {
+    isOpen: boolean;
+    toggleModal: Function;
     modalTitle: string;
     children: React.ReactNode;
     buttonLabel: string;
@@ -18,39 +20,43 @@ interface States {
     modal: boolean;
 }
 
-class ModalExample extends React.Component<Props, States> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      modal: false
-    };
-
-    this.toggle = this.toggle.bind(this);
+export class Modal2 extends React.Component<Props, States> {
+  constructor (props: Props) {
+    super(props); 
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
+  clickHandler () {
+    this.props.toggleModal();
   }
 
-  render() {
+  render () {
     return (
-      <div>
-        <Button size={this.props.buttonSize} color={this.props.buttonColor} onClick={this.toggle} data-toggle="tooltip" title={this.props.buttonTooltip}>{this.props.buttonLabel}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>{this.props.modalTitle}</ModalHeader>
+      <Modal isOpen={this.props.isOpen} className={this.props.className}>
+          <ModalHeader >{this.props.modalTitle}</ModalHeader>
           <ModalBody>
               {this.props.children}
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="primary" onClick={this.clickHandler}>Do Something</Button>{' '}
+            <Button color="secondary" onClick={this.clickHandler} >Cancel</Button>
           </ModalFooter>
-        </Modal>
-      </div>
+       </Modal>
     );
   }
 }
 
-export default ModalExample;
+interface ModalContentProps {
+  input: [string, string][];
+}
+export function NodeModal(props: ModalContentProps) {
+  return (
+    <div>
+      {props.input.map((l, index) => 
+    <FormGroup key={index}>
+        <Label for="exampleText">{l[0]}</Label>
+        <Input type="text" name="name" id={'Name'} placeholder={l[1]} />
+    </FormGroup>
+      )}</div>
+  );
+}

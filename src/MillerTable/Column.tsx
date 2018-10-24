@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Cell, CellObject } from './Cell';
-import { ListGroup, Label, FormGroup, Input } from 'reactstrap';
-import ModalExample from './Modal';
+import { ListGroup, Button } from 'reactstrap';
+import { Modal2, NodeModal } from './Modal';
 
 export class ColumnObject {
   id: string; 
@@ -22,12 +22,7 @@ interface ColProps {
 interface ColState {
   cells: CellObject[];
   activeCell?: CellObject;
-  // cells: {
-  //   // id: number,
-  //   // content: string,
-  //   cell: CellObject,
-  //   isActive: boolean
-  // }[];
+  newItemModal: boolean;
 }
 
 export class Column extends React.Component<ColProps, ColState> {
@@ -38,13 +33,21 @@ export class Column extends React.Component<ColProps, ColState> {
       // Cannot embbed the state to the object since it's really just content. 
       // cells: this.props.cells.map((cell: CellObject) => {return {cell: cell, isActive: false}; })
       cells: props.cells,
-      activeCell: undefined
+      activeCell: undefined,
+      newItemModal: false
     };
     this.deleteCell = this.deleteCell.bind(this);
     this.addCell = this.addCell.bind(this);
     this.selectCell = this.selectCell.bind(this);
     this.viewCell = this.viewCell.bind(this);
     this.childrenCells = this.childrenCells.bind(this);
+    this.toggleNewModal = this.toggleNewModal.bind(this);
+  }
+
+  toggleNewModal() {
+    this.setState({
+      newItemModal: !this.state.newItemModal
+    });
   }
 
   addCell() {
@@ -105,12 +108,10 @@ export class Column extends React.Component<ColProps, ColState> {
             {this.props.column.title}
           </div>
           <span className="ml-auto pt-15">
-            <ModalExample buttonLabel="New" buttonColor="light" buttonSize="sm" modalTitle={this.props.title}>
-              <FormGroup>
-                <Label for="exampleText">{this.props.title + ' Name'}</Label>
-                <Input type="text" name="name" id={this.props.column.id + 'Name'} />
-              </FormGroup>
-            </ModalExample>
+            <Button size="sm" color="light" onClick={this.toggleNewModal} data-toggle="tooltip" title={this.props.title}>New</Button>
+            <Modal2 toggleModal={this.toggleNewModal} isOpen={this.state.newItemModal} buttonLabel="New" buttonColor="light" buttonSize="sm" modalTitle={this.props.title}>
+              <NodeModal input={[['label 1', 'value 1'], ['label 2', 'value 2']]} />
+            </Modal2>
           </span>
         </div>
           {this.childrenCells()}
