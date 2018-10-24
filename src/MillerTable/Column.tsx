@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Cell, CellObject } from './Cell';
-import { ListGroup, Button } from 'reactstrap';
+import { ListGroup } from 'reactstrap';
 import { Modal2, NodeModal } from './Modal';
+import { NewCellBtn } from './CellActionButtonGroup';
 
 export class ColumnObject {
   id: string; 
@@ -108,7 +109,7 @@ export class Column extends React.Component<ColProps, ColState> {
             {this.props.column.title}
           </div>
           <span className="ml-auto pt-15">
-            <Button size="sm" color="light" onClick={this.toggleNewModal} data-toggle="tooltip" title={this.props.title}>New</Button>
+            <NewCellBtn size="sm" color="light" onClick={this.toggleNewModal} />
             <Modal2 toggleModal={this.toggleNewModal} isOpen={this.state.newItemModal} buttonLabel="New" buttonColor="light" buttonSize="sm" modalTitle={this.props.title}>
               <NodeModal input={[['label 1', 'value 1'], ['label 2', 'value 2']]} />
             </Modal2>

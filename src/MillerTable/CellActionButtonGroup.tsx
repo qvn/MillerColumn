@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ButtonGroup, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faPencilAlt, faCopy, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faPencilAlt, faCopy, faEye, faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from 'reactstrap/lib/Button';
 // TODO: refactor into two different component instead of one for both dropdown and icon button groups
 interface CellACtionButtonGroupProps {
@@ -82,3 +82,58 @@ export class CellActionButtonGroup extends React.Component<CellACtionButtonGroup
       }
     }
   }
+
+interface CellActionButtonProps {
+  style?: string;
+  size?: string;
+  color?: string;
+  className?: string;
+  hidden?: boolean;
+  onClick?: Function;
+}
+
+export function DeleteCellBtn (props: CellActionButtonProps) {
+  return (
+        <Button size={props.size} color={props.color} data-toggle="tooltip" data-placement="top" title="View Details"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+  );
+}
+
+export function ViewCellBtn (props: CellActionButtonProps) {
+  return (
+    <Button color={props.color} size={props.size} data-toggle="tooltip" data-placement="top" title="View Details"><FontAwesomeIcon icon={faEye} /></Button>
+  );
+}
+
+export function EditCellBtn(props: CellActionButtonProps) {
+  return (
+    <Button color={props.color} size={props.size} data-toggle="tooltip" data-placement="top" title="View Details"><FontAwesomeIcon icon={faPencilAlt} /></Button>
+  );
+}
+
+export function CopyCellBtn(props: CellActionButtonProps) {
+  return (
+    <Button color={props.color} size={props.size} data-toggle="tooltip" data-placement="top" title="View Details"><FontAwesomeIcon icon={faCopy} /></Button>
+  );
+}
+
+export function NewCellBtn(props: CellActionButtonProps) {
+
+  function handleClick () {
+    if (props.onClick) {
+      props.onClick();
+    }
+  }
+
+  return (
+    <Button 
+      color={props.color} 
+      size={props.size} 
+      onClick={handleClick}
+      data-toggle="tooltip" 
+      data-placement="top" 
+      title="View Details"
+    >
+      <FontAwesomeIcon icon={faPlus} />
+    </Button>
+  );
+}

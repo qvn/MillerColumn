@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ListGroupItem, Badge } from 'reactstrap';
-import { CellActionButtonGroup } from './CellActionButtonGroup';
+import { DeleteCellBtn } from './CellActionButtonGroup';
 
 export class CellObject {
   id: string;
@@ -71,7 +71,8 @@ export class Cell extends React.Component<CellProps, CellState> {
           {this.props.cell.content.substring(0, 30)}
         </span>
         <div>
-          <CellActionButtonGroup hideAll={this.state.hideActionBtnGroup} hasView={true} hasDelete={true} hasCopy={true} hasEdit={true} size="sm" color="light"/>
+          <DeleteCellBtn />
+          {/* <CellActionButtonGroup hideAll={this.state.hideActionBtnGroup} hasView={true} hasDelete={true} hasCopy={true} hasEdit={true} size="sm" color="light"/> */}
           {/* This needs to be a "has children" the cell properties is very presumptous here */}
           {(this.props.cell.childrenTable !== undefined) && <Badge>{this.props.cell.childrenCount}</Badge>}
         </div>
