@@ -1,14 +1,7 @@
 import * as React from 'react';
 import { Column, ColumnObject } from './Column';
 import { CellObject } from './Cell';
-// import { ScenarioData } from '../data/scenarioController';
 
-// Data Controller: need to update to call the right controller
-// import { DataController } from '../data/scenarioController';
-// var controller = new DataController;
-// var firstColumn: ColumnObject = DataController.getNodes();
-
-// var myController = new ScenarioData;
 interface ScenarioDataType {
   childrenCount: number;
   id: string;
@@ -66,7 +59,8 @@ export namespace Container {
     // TODO: Passing column index seems clunky
     addChilrenColumn(cell: CellObject, columnIndex: number) {
         let self = this;
-        fetch('http://localhost:3001/deviation', {method: 'GET'}).then(function(response: Response) {
+        let url = 'http://localhost:3001/' + cell.childrenTable;
+        fetch(url, {method: 'GET'}).then(function(response: Response) {
           if (response.status >= 400) {
             throw new Error('Bad Response from Server');
           }
@@ -81,14 +75,6 @@ export namespace Container {
             };
           });
         });
-
-      //   // this.setState(function(state: ContainerStates, props: ContainerProps) { 
-      //   //   var newColumn: ColumnObject | null = (myController.getChildren(cell.id, cell.childrenTable));
-      //   //   var newColumns: ColumnObject[] = (newColumn === null) ? state.columns : state.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn);
-      //   //   return {
-      //   //     columns: newColumns
-      //   //   };
-      // });
     }
 
     // note: key must use the ID so that component understands it will refresh upon a new key (sever returns a new Id, whcih trigger the refresh of 
