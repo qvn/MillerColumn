@@ -27,28 +27,45 @@ function getColumnObject(id: string, title: string, data: ScenarioDataType[]): C
         })
     };
 }
-export namespace Container {
-  interface ContainerProps {
-    firstColumn: ColumnObject;
+
+interface ContainerProps {
   }
-  interface ContainerStates {
+interface ContainerStates {
     columns: ColumnObject[];
   }
 
-  export class ReactObject extends React.Component<
+export class Container extends React.Component<
     ContainerProps,
     ContainerStates
   > {
     constructor(props: ContainerProps) {
       super(props);
       this.state = {
-        columns: [this.props.firstColumn],
+        columns: [],
       };
       // this.addNewColumn = this.addNewColumn.bind(this);
       this.addChilrenColumn = this.addChilrenColumn.bind(this);
       this.deleteColumn = this.deleteColumn.bind(this);
     }
 
+    componentDidMount() {
+        let self = this;
+        let url = 'http://localhost:3001/' + 'node';
+        fetch(url, {method: 'GET'}).then(function(response: Response) {
+          if (response.status >= 400) {
+            throw new Error('Bad Response from Server');
+          }
+          return response.json();
+        }).then(function(data: ScenarioDataType[]) {
+          var newColumn: ColumnObject = getColumnObject('0', 'Node', data);
+          self.setState((prevState: ContainerStates) => {
+            return {
+              columns: [...prevState.columns].concat(newColumn)
+            };
+          });
+        });
+      }
+ 
     deleteColumn() {
       var newColumns: ColumnObject[] = [...this.state.columns];
       newColumns = newColumns.slice(0, this.state.columns.length - 1);
@@ -66,7 +83,7 @@ export namespace Container {
           }
           return response.json();
         }).then(function(data: ScenarioDataType[]) {
-          var newColumn: ColumnObject | null = getColumnObject('new Column', 'new Column', data);
+          var newColumn: ColumnObject | null = getColumnObject(cell.parentId, cell.childrenTable, data);
           console.log(newColumn);
           self.setState((prevState: ContainerStates) => {
             var newColumns: ColumnObject[] = (newColumn === null) ? prevState.columns : prevState.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn);
@@ -101,4 +118,3 @@ export namespace Container {
       );
     }
   }
-}
