@@ -1,15 +1,39 @@
 import * as React from 'react';
 import { Column, ColumnObject } from './Column';
 import { CellObject } from './Cell';
-import { ScenarioData } from '../data/scenarioController';
+// import { ScenarioData } from '../data/scenarioController';
 
 // Data Controller: need to update to call the right controller
 // import { DataController } from '../data/scenarioController';
 // var controller = new DataController;
 // var firstColumn: ColumnObject = DataController.getNodes();
 
-var myController = new ScenarioData;
-
+// var myController = new ScenarioData;
+interface ScenarioDataType {
+  childrenCount: number;
+  id: string;
+  text: string;
+  parentId: string;
+  parentTable: string;
+  childrenTable: string;
+}
+function getColumnObject(id: string, title: string, data: ScenarioDataType[]): ColumnObject {
+    return {
+        id: id,
+        title: title,
+        cells: data.map((x: ScenarioDataType) => {
+            var n: CellObject = {
+                childrenCount: x.childrenCount,
+                id: x.id,
+                content: x.text,
+                parentId: x.parentId,
+                parentTable: x.parentTable,
+                childrenTable: x.childrenTable
+            };
+            return n;
+        })
+    };
+}
 export namespace Container {
   interface ContainerProps {
     firstColumn: ColumnObject;
@@ -41,14 +65,32 @@ export namespace Container {
     }
     // TODO: Passing column index seems clunky
     addChilrenColumn(cell: CellObject, columnIndex: number) {
-        this.setState(function(state: ContainerStates, props: ContainerProps) { 
-          var newColumn: ColumnObject | null = (myController.getChildren(cell.id, cell.childrenTable));
-          var newColumns: ColumnObject[] = (newColumn === null) ? state.columns : state.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn);
-          return {
-            columns: newColumns
-          };
-      });
+        let self = this;
+        fetch('http://localhost:3001/deviation', {method: 'GET'}).then(function(response: Response) {
+          if (response.status >= 400) {
+            throw new Error('Bad Response from Server');
+          }
+          return response.json();
+        }).then(function(data: ScenarioDataType[]) {
+          var newColumn: ColumnObject | null = getColumnObject('new Column', 'new Column', data);
+          console.log(newColumn);
+          self.setState((prevState: ContainerStates) => {
+            var newColumns: ColumnObject[] = (newColumn === null) ? prevState.columns : prevState.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn);
+            return {
+              columns: newColumns
+            };
+          });
+        });
+
+      //   // this.setState(function(state: ContainerStates, props: ContainerProps) { 
+      //   //   var newColumn: ColumnObject | null = (myController.getChildren(cell.id, cell.childrenTable));
+      //   //   var newColumns: ColumnObject[] = (newColumn === null) ? state.columns : state.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn);
+      //   //   return {
+      //   //     columns: newColumns
+      //   //   };
+      // });
     }
+
     // note: key must use the ID so that component understands it will refresh upon a new key (sever returns a new Id, whcih trigger the refresh of 
     // compoeent). This is a potential bug where the ID returned is identical to previous Id. However, this is not expected each ID should be the ID
     // of the parent from selected element, which would be different for all element.
@@ -59,7 +101,7 @@ export namespace Container {
           <div className="row d-flex max-height-100">
             {this.state.columns.map((column: ColumnObject, index: number) => 
               <Column 
-                key={column.id} 
+                key={index} 
                 index={index}
                 column={column} 
                 cells={column.cells}
