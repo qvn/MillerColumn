@@ -110,7 +110,7 @@ export class Column extends React.Component<ColProps, ColState> {
           </div>
           <span className="ml-auto pt-15">
             <NewCellBtn size="sm" color="light" onClick={this.toggleNewModal} />
-            <Modal2 toggleModal={this.toggleNewModal} isOpen={this.state.newItemModal} buttonLabel="New" buttonColor="light" buttonSize="sm" modalTitle={this.props.title}>
+            <Modal2 toggleModal={this.toggleNewModal} isOpen={this.state.newItemModal} modalTitle={this.props.title}>
               <NodeModal input={[['label 1', 'value 1'], ['label 2', 'value 2']]} />
             </Modal2>
           </span>

@@ -1,17 +1,13 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
 import * as React from 'react';
-import { Modal, Button, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label } from 'reactstrap';
+import { Modal, Button, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label, Form } from 'reactstrap';
 
 interface Props {
     isOpen: boolean;
     toggleModal: Function;
     modalTitle: string;
     children: React.ReactNode;
-    buttonLabel: string;
-    buttonColor: string;
-    buttonSize: string;
-    buttonTooltip?: string;
     keyboard?: boolean;
     className?: string;
 }
@@ -33,6 +29,7 @@ export class Modal2 extends React.Component<Props, States> {
   render () {
     return (
       <Modal isOpen={this.props.isOpen} className={this.props.className}>
+        <Form>
           <ModalHeader >{this.props.modalTitle}</ModalHeader>
           <ModalBody>
               {this.props.children}
@@ -41,6 +38,7 @@ export class Modal2 extends React.Component<Props, States> {
             <Button color="primary" onClick={this.clickHandler}>Do Something</Button>{' '}
             <Button color="secondary" onClick={this.clickHandler} >Cancel</Button>
           </ModalFooter>
+        </Form>
        </Modal>
     );
   }
