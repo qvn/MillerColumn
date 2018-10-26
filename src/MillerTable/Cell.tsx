@@ -35,7 +35,8 @@ export class Cell extends React.Component<CellProps, CellState> {
     this.deleteCell = this.deleteCell.bind(this);
     this.selectCell = this.selectCell.bind(this);
     this.viewCell = this.viewCell.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   selectCell() {
@@ -50,14 +51,16 @@ export class Cell extends React.Component<CellProps, CellState> {
     this.props.viewCell(this.props.cell);
   }
 
-  handleMouseOver() {
-    this.setState(this.toggleHoverState);
+  handleMouseEnter() {
+    this.setState((prevState: CellState) => ({
+      hideActionBtnGroup: false 
+    }));
   }
 
-  toggleHoverState(prevState: CellState) {
-    return {
-      hideActionBtnGroup: !prevState.hideActionBtnGroup
-    };
+  handleMouseLeave() {
+    this.setState((prevState: CellState) => ({
+      hideActionBtnGroup: true 
+    }));
   }
 
   // TODO: editor handler must promp for other things. For now, we just get content
@@ -71,8 +74,8 @@ export class Cell extends React.Component<CellProps, CellState> {
         onClick={this.selectCell} 
         active={this.props.isActive} 
         className="d-flex justify-content-between" 
-        onMouseEnter={this.handleMouseOver} 
-        onMouseLeave={this.handleMouseOver}
+        onMouseEnter={this.handleMouseEnter} 
+        onMouseLeave={this.handleMouseLeave}
       >
         <span>
           {this.props.cell.content.substring(0, 30)}
