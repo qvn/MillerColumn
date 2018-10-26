@@ -66,14 +66,21 @@ export class Cell extends React.Component<CellProps, CellState> {
 
   render() {
     return (
-      <ListGroupItem action={true} onClick={this.selectCell} active={this.props.isActive} className="d-flex justify-content-between" onMouseEnter={this.handleMouseOver} onMouseLeave={this.handleMouseOver}>
+      <ListGroupItem 
+        action={true} 
+        onClick={this.selectCell} 
+        active={this.props.isActive} 
+        className="d-flex justify-content-between" 
+        onMouseEnter={this.handleMouseOver} 
+        onMouseLeave={this.handleMouseOver}
+      >
         <span>
           {this.props.cell.content.substring(0, 30)}
         </span>
         <div>
           <ButtonGroup hidden={this.state.hideActionBtnGroup}>
             <EditCellBtn size="sm" color="light" />
-            <DeleteCellBtn size="sm" color="light" />
+            <DeleteCellBtn size="sm" color="light" index={this.props.index} onClick={this.deleteCell}/>
             <ViewCellBtn size="sm" color="light" />
             <CopyCellBtn size="sm" color="light" />
           </ButtonGroup>

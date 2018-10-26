@@ -92,15 +92,42 @@ interface CellActionButtonProps {
   onClick?: Function;
 }
 
-export function DeleteCellBtn (props: CellActionButtonProps) {
+interface DeleteBtnProps extends CellACtionButtonGroupProps {
+  index: number;
+  // onClick: (index: number) => Function;
+  onClick: Function;
+}
+
+export function DeleteCellBtn (props: DeleteBtnProps) {
+  function handleClick () {
+    console.log('delete' + props.index.toString());
+    props.onClick(props.index);
+  }
   return (
-        <Button size={props.size} color={props.color} data-toggle="tooltip" data-placement="top" title="View Details"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+        <Button 
+          size={props.size} 
+          color={props.color} 
+          data-toggle="tooltip" 
+          data-placement="top" 
+          title="View Details"
+          onClick={handleClick}
+        >
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </Button>
   );
 }
 
 export function ViewCellBtn (props: CellActionButtonProps) {
   return (
-    <Button color={props.color} size={props.size} data-toggle="tooltip" data-placement="top" title="View Details"><FontAwesomeIcon icon={faEye} /></Button>
+    <Button 
+      color={props.color} 
+      size={props.size} 
+      data-toggle="tooltip" 
+      data-placement="top" 
+      title="View Details"
+    >
+        <FontAwesomeIcon icon={faEye} />
+    </Button>
   );
 }
 
