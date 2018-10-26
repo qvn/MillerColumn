@@ -81,7 +81,7 @@ export class Cell extends React.Component<CellProps, CellState> {
           {this.props.cell.content.substring(0, 30)}
         </span>
         <div>
-          <ButtonGroup hidden={this.state.hideActionBtnGroup}>
+          <ButtonGroup hidden={!this.props.isActive}>
             <EditCellBtn size="sm" color="light" />
             <DeleteCellBtn size="sm" color="light" index={this.props.index} onClick={this.deleteCell}/>
             <ViewCellBtn size="sm" color="light" />
