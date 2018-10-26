@@ -81,7 +81,7 @@ export class Column extends React.Component<ColProps, ColState> {
   }
 
   childrenCells() {
-    if (this.state.cells === undefined || this.state.cells.length === 0) {
+    if (this.props.cells === undefined || this.props.cells.length === 0) {
       return (<span>{'No ' + this.props.title + ' found.'}</span>);
     } else {
       return (

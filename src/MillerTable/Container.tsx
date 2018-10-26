@@ -2,6 +2,10 @@ import * as React from 'react';
 import { Column, ColumnObject } from './Column';
 import { CellObject } from './Cell';
 
+var dbURL = 'http://localhost:3001/';
+// avoid using hard coding the first column name
+var firstColumnName = 'Node';
+
 interface ScenarioDataType {
   childrenCount: number;
   id: string;
@@ -50,14 +54,15 @@ export class Container extends React.Component<
 
     componentDidMount() {
         let self = this;
-        let url = 'http://localhost:3001/' + 'node';
+        let url =  dbURL + firstColumnName;
         fetch(url, {method: 'GET'}).then(function(response: Response) {
           if (response.status >= 400) {
             throw new Error('Bad Response from Server');
           }
           return response.json();
         }).then(function(data: ScenarioDataType[]) {
-          var newColumn: ColumnObject = getColumnObject('0', 'Node', data);
+          // Avoid using hardcoding the first column numbner
+          var newColumn: ColumnObject = getColumnObject('0', firstColumnName, data);
           self.setState((prevState: ContainerStates) => {
             return {
               columns: [...prevState.columns].concat(newColumn)
@@ -74,21 +79,22 @@ export class Container extends React.Component<
       );
     }
     // TODO: Passing column index seems clunky
+    // should column oiwn this call once it mounts?
     addChilrenColumn(cell: CellObject, columnIndex: number) {
         let self = this;
-        let url = 'http://localhost:3001/' + cell.childrenTable;
+        let url = dbURL + cell.childrenTable + '?parentId=' + cell.id;
+        console.log(url);
         fetch(url, {method: 'GET'}).then(function(response: Response) {
           if (response.status >= 400) {
             throw new Error('Bad Response from Server');
           }
           return response.json();
         }).then(function(data: ScenarioDataType[]) {
-          var newColumn: ColumnObject | null = getColumnObject(cell.parentId, cell.childrenTable, data);
-          console.log(newColumn);
+          var newColumn: ColumnObject = getColumnObject(cell.parentId, cell.childrenTable, data);
           self.setState((prevState: ContainerStates) => {
-            var newColumns: ColumnObject[] = (newColumn === null) ? prevState.columns : prevState.columns.slice(0, Math.max(columnIndex + 1, 1)).concat(newColumn);
+            var arr = [... prevState.columns].slice(0, columnIndex + 1).concat(newColumn);
             return {
-              columns: newColumns
+              columns: arr
             };
           });
         });

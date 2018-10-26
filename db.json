@@ -6,12 +6,24 @@
     "comments": [
       { "id": 1, "body": "some comment", "postId": 1 }
     ],
-    "node" :
+    "Cause" :[        
+      {
+      "id": "d68ca91a-527b-4af9-a93b-c7e4160559c6",
+      "type": "Cause",
+      "childrenCount": 0,
+      "parentTable": "Deviation",
+      "childrenTable": "",
+      "index": 0,
+      "parentId": "28f1db44-5a50-4530-9f55-100aeea52f03",
+      "text": "Do mollit nulla proident dolor dolor labore dolore occaecat non ad culpa irure commodo. Lorem exercitation ut officia culpa quis nulla enim cillum in ipsum consectetur ea pariatur. Ipsum proident do fugiat consequat deserunt et aliqua aliquip ea ea dolore laboris. Non veniam dolor aliqua dolor excepteur dolore aliquip adipisicing dolor ullamco. Cupidatat dolore do ea ut consequat enim excepteur esse aute elit. Sit ad tempor sint sit sint sit tempor quis ipsum ex reprehenderit cupidatat."
+    }],
+
+    "Node" :
     [
         {
           "id": "d68ca91a-527b-4af9-a93b-c7e4160559c6",
           "type": "Node",
-          "chilrenCount": 5,
+          "childrenCount": 5,
           "parentTable": "PHA",
           "childrenTable": "Deviation",
           "index": 0,
@@ -21,7 +33,7 @@
         {
           "id": "9a5a5d06-38e2-47c2-8b56-94bcc99c2695",
           "type": "Node",
-          "chilrenCount": 0,
+          "childrenCount": 0,
           "parentTable": "PHA",
           "childrenTable": "Deviation",
           "index": 1,
@@ -31,7 +43,7 @@
         {
           "id": "6f91d9e5-2296-45cf-971c-ee11facd1df5",
           "type": "Node",
-          "chilrenCount": 0,
+          "childrenCount": 0,
           "parentTable": "PHA",
           "childrenTable": "Deviation",
           "index": 2,
@@ -41,7 +53,7 @@
         {
           "id": "bc342812-c064-4b63-93e4-8691dc94b0fd",
           "type": "Node",
-          "chilrenCount": 5,
+          "childrenCount": 5,
           "parentTable": "PHA",
           "childrenTable": "Deviation",
           "index": 3,
@@ -51,7 +63,7 @@
         {
           "id": "527e19a7-7a2e-4931-b034-cd19f9ccaa3c",
           "type": "Node",
-          "chilrenCount": 0,
+          "childrenCount": 0,
           "parentTable": "PHA",
           "childrenTable": "Deviation",
           "index": 4,
@@ -61,7 +73,7 @@
         {
           "id": "44048933-3a4a-4df2-904e-18b13cda76df",
           "type": "Node",
-          "chilrenCount": 0,
+          "childrenCount": 0,
           "parentTable": "PHA",
           "childrenTable": "Deviation",
           "index": 5,
@@ -69,12 +81,12 @@
           "text": "Et nisi aliquip dolor anim duis sit ea amet est sint. Irure laboris ex do cillum ad elit. Velit do exercitation aliquip laboris duis nulla occaecat cupidatat. Duis nisi duis duis aliquip velit enim adipisicing."
         }
       ],
-"deviation" : [
+"Deviation" : [
     {
       "id": "28f1db44-5a50-4530-9f55-100aeea52f03",
       "parentId": "d68ca91a-527b-4af9-a93b-c7e4160559c6",
-      "chilrenCount": 6,
-      "childrenTable": "Causes",
+      "childrenCount": 6,
+      "childrenTable": "Cause",
       "parentTable": "Node",
       "index": 0,
       "text": "Non non consectetur elit veniam. Qui duis aliqua do qui. Fugiat veniam irure Lorem commodo esse. Velit voluptate quis quis mollit. Et sit consequat quis aliqua dolore cupidatat aliqua proident minim nostrud fugiat ea id."
@@ -82,8 +94,8 @@
     {
       "id": "dcdc7a96-cfdd-4188-833a-08f970bc1a30",
       "parentId": "d68ca91a-527b-4af9-a93b-c7e4160559c6",
-      "childrenTable": "Causes",
-      "chilrenCount": 1,
+      "childrenTable": "Cause",
+      "childrenCount": 1,
       "parentTable": "Node",
       "index": 1,
       "text": "Ex enim cupidatat anim culpa est tempor elit magna anim ea nostrud do. Labore irure qui occaecat ut amet aliqua proident non amet ex tempor deserunt velit. Consectetur eiusmod eu non amet ea. Aliquip tempor occaecat sunt elit ut id Lorem esse ad consequat eiusmod dolore occaecat adipisicing. Reprehenderit cupidatat nisi nisi excepteur sint esse ipsum consequat consectetur in culpa consectetur exercitation nisi. Cupidatat aute velit eiusmod ut. Tempor ea veniam Lorem sint dolore."
@@ -91,8 +103,8 @@
     {
       "id": "b94a448c-d2d9-44b5-ad29-702ed46df6c5",
       "parentId": "d68ca91a-527b-4af9-a93b-c7e4160559c6",
-      "childrenTable": "Causes",
-      "chilrenCount": 8,
+      "childrenTable": "Cause",
+      "childrenCount": 8,
       "parentTable": "Node",
       "index": 2,
       "text": "Est magna sint cillum pariatur id in magna sit ad elit aliqua quis ipsum anim. Consectetur anim laborum nulla enim amet amet pariatur aliqua ipsum ea. Deserunt consectetur nisi laborum aliquip veniam laboris ut dolor nostrud fugiat."
@@ -100,8 +112,8 @@
     {
       "id": "4645abee-1456-48b9-8bab-c08af2b91793",
       "parentId": "d68ca91a-527b-4af9-a93b-c7e4160559c6",
-      "childrenTable": "Causes",
-      "chilrenCount": 1,
+      "childrenTable": "Cause",
+      "childrenCount": 1,
       "parentTable": "Node",
       "index": 3,
       "text": "Exercitation consectetur consectetur excepteur ut tempor ullamco laboris. Magna eiusmod consectetur proident voluptate cillum sint nulla ea. Laborum sint in veniam laboris Lorem commodo nulla minim ea velit."
@@ -109,17 +121,17 @@
     {
       "id": "ea1274ea-45c0-43d5-81d6-d8d98f414e3c",
       "parentId": "d68ca91a-527b-4af9-a93b-c7e4160559c6",
-      "childrenTable": "Causes",
+      "childrenTable": "Cause",
       "parentTable": "Node",
-      "chilrenCount": 6,
+      "childrenCount": 6,
       "index": 4,
       "text": "Incididunt dolor proident magna eiusmod excepteur aute. Veniam non commodo eiusmod nisi deserunt qui duis nostrud occaecat cupidatat enim officia elit fugiat. Aliqua in et ipsum incididunt excepteur culpa."
     },
     {
       "id": "28f1db44-5a50-4530-9f55-100aeea52f03",
       "parentId": "bc342812-c064-4b63-93e4-8691dc94b0fd",
-      "chilrenCount": 6,
-      "childrenTable": "Causes",
+      "childrenCount": 6,
+      "childrenTable": "Cause",
       "parentTable": "Node",
       "index": 0,
       "text": "sldkfjsdfljk"
@@ -127,8 +139,8 @@
     {
       "id": "dcdc7a96-cfdd-4188-833a-08f970bc1a30",
       "parentId": "bc342812-c064-4b63-93e4-8691dc94b0fd",
-      "childrenTable": "Causes",
-      "chilrenCount": 1,
+      "childrenTable": "Cause",
+      "childrenCount": 1,
       "parentTable": "Node",
       "index": 1,
       "text": "Ex enim cupidatat anim culpa est tempor elit magna anim ea nostrud do. Labore irure qui occaecat ut amet aliqua proident non amet ex tempor deserunt velit. Consectetur eiusmod eu non amet ea. Aliquip tempor occaecat sunt elit ut id Lorem esse ad consequat eiusmod dolore occaecat adipisicing. Reprehenderit cupidatat nisi nisi excepteur sint esse ipsum consequat consectetur in culpa consectetur exercitation nisi. Cupidatat aute velit eiusmod ut. Tempor ea veniam Lorem sint dolore."
@@ -136,8 +148,8 @@
     {
       "id": "b94a448c-d2d9-44b5-ad29-702ed46df6c5",
       "parentId": "bc342812-c064-4b63-93e4-8691dc94b0fd",
-      "childrenTable": "Causes",
-      "chilrenCount": 8,
+      "childrenTable": "Cause",
+      "childrenCount": 8,
       "parentTable": "Node",
       "index": 2,
       "text": "Est magna sint cillum pariatur id in magna sit ad elit aliqua quis ipsum anim. Consectetur anim laborum nulla enim amet amet pariatur aliqua ipsum ea. Deserunt consectetur nisi laborum aliquip veniam laboris ut dolor nostrud fugiat."
@@ -145,8 +157,8 @@
     {
       "id": "4645abee-1456-48b9-8bab-c08af2b91793",
       "parentId": "bc342812-c064-4b63-93e4-8691dc94b0fd",
-      "childrenTable": "Causes",
-      "chilrenCount": 1,
+      "childrenTable": "Cause",
+      "childrenCount": 1,
       "parentTable": "Node",
       "index": 3,
       "text": "Exercitation consectetur consectetur excepteur ut tempor ullamco laboris. Magna eiusmod consectetur proident voluptate cillum sint nulla ea. Laborum sint in veniam laboris Lorem commodo nulla minim ea velit."
@@ -154,9 +166,9 @@
     {
       "id": "ea1274ea-45c0-43d5-81d6-d8d98f414e3c",
       "parentId": "bc342812-c064-4b63-93e4-8691dc94b0fd",
-      "childrenTable": "Causes",
+      "childrenTable": "Cause",
       "parentTable": "Node",
-      "chilrenCount": 6,
+      "childrenCount": 6,
       "index": 4,
       "text": "Incididunt dolor proident magna eiusmod excepteur aute. Veniam non commodo eiusmod nisi deserunt qui duis nostrud occaecat cupidatat enim officia elit fugiat. Aliqua in et ipsum incididunt excepteur culpa."
     }
