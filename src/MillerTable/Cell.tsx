@@ -39,12 +39,13 @@ export class Cell extends React.Component<CellProps, CellState> {
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
-  selectCell() {
+  selectCell(event: React.SyntheticEvent) {
     this.props.selectCell(this.props.cell);
   }
 
-  deleteCell() {
-    this.props.deleteCell(this.props.index);
+  deleteCell(event: React.SyntheticEvent) {
+    // event.preventDefault();
+    this.props.deleteCell(this.props.cell);
   }
 
   viewCell() {
@@ -74,8 +75,6 @@ export class Cell extends React.Component<CellProps, CellState> {
         onClick={this.selectCell} 
         active={this.props.isActive} 
         className="d-flex justify-content-between" 
-        onMouseEnter={this.handleMouseEnter} 
-        onMouseLeave={this.handleMouseLeave}
       >
         <span>
           {this.props.cell.content.substring(0, 30)}

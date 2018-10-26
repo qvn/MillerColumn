@@ -18,6 +18,7 @@ interface ColProps {
   column: ColumnObject;
   // addNewColumn: Function;
   addChildrenColumn: Function;
+  deleteChildrenColumn: Function;
 }
 
 interface ColState {
@@ -58,20 +59,21 @@ export class Column extends React.Component<ColProps, ColState> {
     });
   }
 
-  deleteCell(cellIndex: number) {
-    console.log(cellIndex);
-    var arr = [...this.state.cells];
-    arr.splice(cellIndex, 1);
-    this.setState({
-      cells: arr
-    });
+  deleteCell(cell: CellObject) {
+    this.setState((prevState: ColState) => ({
+      cells: [...prevState.cells].filter(item => item !== cell)
+    }));
+    if (this.state.activeCell && this.state.activeCell === cell) {
+      this.props.deleteChildrenColumn(this.props.index);
+     }
   }
 
   selectCell(myCell: CellObject) {
     this.setState({
         activeCell: myCell
       });
-    if (myCell.childrenTable !== undefined && myCell.childrenTable !== '') {
+      // TODO: this seems sloppy
+    if (myCell.childrenTable && myCell.childrenTable !== '') {
       this.props.addChildrenColumn(myCell, this.props.index);
     }
   }

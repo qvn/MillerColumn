@@ -49,7 +49,7 @@ export class Container extends React.Component<
       };
       // this.addNewColumn = this.addNewColumn.bind(this);
       this.addChilrenColumn = this.addChilrenColumn.bind(this);
-      this.deleteColumn = this.deleteColumn.bind(this);
+      this.deleteChildrenColumn = this.deleteChildrenColumn .bind(this);
     }
 
     componentDidMount() {
@@ -71,12 +71,16 @@ export class Container extends React.Component<
         });
       }
  
-    deleteColumn() {
-      var newColumns: ColumnObject[] = [...this.state.columns];
-      newColumns = newColumns.slice(0, this.state.columns.length - 1);
-      this.setState(
-        {columns: newColumns}
-      );
+    deleteChildrenColumn (columnIndex: number) {
+      this.setState((prevState: ContainerStates) => {
+        var arr = [... prevState.columns].slice(0, columnIndex + 1);
+        console.log(arr.length);
+        return {
+          columns: [...arr]
+        };
+        console.log(this.state.columns.length);
+      });
+      console.log(this.state.columns.length);
     }
     // TODO: Passing column index seems clunky
     // should column oiwn this call once it mounts?
@@ -94,7 +98,7 @@ export class Container extends React.Component<
           self.setState((prevState: ContainerStates) => {
             var arr = [... prevState.columns].slice(0, columnIndex + 1).concat(newColumn);
             return {
-              columns: arr
+              columns: [...arr]
             };
           });
         });
@@ -107,6 +111,7 @@ export class Container extends React.Component<
       return (
         <div className="container" id="container">
           {/* <button onClick={this.addNewColumn}>add col</button> */}
+          <span>{this.state.columns.length}</span>
           <div className="row d-flex max-height-100">
             {this.state.columns.map((column: ColumnObject, index: number) => 
               <Column 
@@ -117,6 +122,7 @@ export class Container extends React.Component<
                 title={column.title}
                 // addNewColumn={this.addNewColumn} 
                 addChildrenColumn={this.addChilrenColumn}
+                deleteChildrenColumn={this.deleteChildrenColumn}
               />)
             }
           </div>

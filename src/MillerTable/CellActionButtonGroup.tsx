@@ -99,8 +99,8 @@ interface DeleteBtnProps extends CellACtionButtonGroupProps {
 }
 
 export function DeleteCellBtn (props: DeleteBtnProps) {
-  function handleClick () {
-    console.log('delete' + props.index.toString());
+  function handleClick (event: React.SyntheticEvent) {
+    event.stopPropagation();
     props.onClick(props.index);
   }
   return (
